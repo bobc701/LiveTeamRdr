@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_133455_mlbhistoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Appearance">
+    <Key>
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="teamID" />
+      <PropertyRef Name="playerID" />
+    </Key>
+    <Property Name="yearID" Type="Int32" Nullable="false" />
+    <Property Name="teamID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="lgID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="playerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="G_all" Type="Int32" Nullable="false" />
+    <Property Name="GS" Type="Int32" />
+    <Property Name="G_batting" Type="Int32" />
+    <Property Name="G_defense" Type="Int32" />
+    <Property Name="G_p" Type="Int32" />
+    <Property Name="G_c" Type="Int32" />
+    <Property Name="G_1b" Type="Int32" />
+    <Property Name="G_2b" Type="Int32" />
+    <Property Name="G_3b" Type="Int32" />
+    <Property Name="G_ss" Type="Int32" />
+    <Property Name="G_lf" Type="Int32" />
+    <Property Name="G_cf" Type="Int32" />
+    <Property Name="G_rf" Type="Int32" />
+    <Property Name="G_of" Type="Int32" />
+    <Property Name="G_dh" Type="Int32" />
+    <Property Name="G_ph" Type="Int32" />
+    <Property Name="G_pr" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Batting">
+    <Key>
+      <PropertyRef Name="playerID" />
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="stint" />
+    </Key>
+    <Property Name="playerID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="yearID" Type="Int32" Nullable="false" />
+    <Property Name="stint" Type="Int32" Nullable="false" />
+    <Property Name="teamID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="lgID" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="G" Type="Int32" Nullable="false" />
+    <Property Name="AB" Type="Int32" Nullable="false" />
+    <Property Name="R" Type="Int32" Nullable="false" />
+    <Property Name="H" Type="Int32" Nullable="false" />
+    <Property Name="C2B" Type="Int32" Nullable="false" />
+    <Property Name="C3B" Type="Int32" Nullable="false" />
+    <Property Name="HR" Type="Int32" Nullable="false" />
+    <Property Name="RBI" Type="Int32" />
+    <Property Name="SB" Type="Int32" />
+    <Property Name="CS" Type="Int32" />
+    <Property Name="BB" Type="Int32" />
+    <Property Name="SO" Type="Int32" />
+    <Property Name="IBB" Type="Int32" />
+    <Property Name="HBP" Type="Int32" />
+    <Property Name="SH" Type="Int32" />
+    <Property Name="SF" Type="Int32" />
+    <Property Name="GIDP" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Pitching">
+    <Key>
+      <PropertyRef Name="playerID" />
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="stint" />
+    </Key>
+    <Property Name="playerID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="yearID" Type="Int32" Nullable="false" />
+    <Property Name="stint" Type="Int32" Nullable="false" />
+    <Property Name="teamID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="lgID" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="W" Type="Int32" Nullable="false" />
+    <Property Name="L" Type="Int32" Nullable="false" />
+    <Property Name="G" Type="Int32" Nullable="false" />
+    <Property Name="GS" Type="Int32" Nullable="false" />
+    <Property Name="CG" Type="Int32" Nullable="false" />
+    <Property Name="SHO" Type="Int32" Nullable="false" />
+    <Property Name="SV" Type="Int32" Nullable="false" />
+    <Property Name="IPouts" Type="Int32" Nullable="false" />
+    <Property Name="H" Type="Int32" Nullable="false" />
+    <Property Name="ER" Type="Int32" Nullable="false" />
+    <Property Name="HR" Type="Int32" Nullable="false" />
+    <Property Name="BB" Type="Int32" Nullable="false" />
+    <Property Name="SO" Type="Int32" Nullable="false" />
+    <Property Name="BAOpp" Type="Double" />
+    <Property Name="ERA" Type="Double" />
+    <Property Name="IBB" Type="Int32" />
+    <Property Name="WP" Type="Int32" />
+    <Property Name="HBP" Type="Int32" />
+    <Property Name="BK" Type="Int32" />
+    <Property Name="BFP" Type="Int32" />
+    <Property Name="GF" Type="Int32" />
+    <Property Name="R" Type="Int32" />
+    <Property Name="SH" Type="Int32" />
+    <Property Name="SF" Type="Int32" />
+    <Property Name="GIDP" Type="Int32" />
+  </EntityType>
+  <EntityType Name="UniqueTeam">
+    <Key>
+      <PropertyRef Name="teamID" />
+    </Key>
+    <Property Name="teamID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="lgID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="ZTeam" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="LineName" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NickName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="UsesDH" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ZTeam">
+    <Key>
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="teamID" />
+    </Key>
+    <Property Name="yearID" Type="Int32" Nullable="false" />
+    <Property Name="teamID" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ZTeam1" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lgID" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LineName" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NickName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UsesDH" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Master">
+    <Key>
+      <PropertyRef Name="playerID" />
+    </Key>
+    <Property Name="playerID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="birthYear" Type="Int32" />
+    <Property Name="birthMonth" Type="Int32" />
+    <Property Name="birthDay" Type="Int32" />
+    <Property Name="birthCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="birthState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="birthCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="deathYear" Type="Int32" />
+    <Property Name="deathMonth" Type="Int32" />
+    <Property Name="deathDay" Type="Int32" />
+    <Property Name="deathCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="deathState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="deathCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nameFirst" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nameLast" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nameGiven" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="weight" Type="Int32" />
+    <Property Name="height" Type="Int32" />
+    <Property Name="bats" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="throws" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="debut" Type="DateTime" Precision="3" />
+    <Property Name="finalGame" Type="DateTime" Precision="3" />
+    <Property Name="retroID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="bbrefID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="lgID" />
+      <PropertyRef Name="teamID" />
+      <PropertyRef Name="franchID" />
+      <PropertyRef Name="Rank" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="BPF" />
+      <PropertyRef Name="PPF" />
+      <PropertyRef Name="teamIDBR" />
+      <PropertyRef Name="teamIDlahman45" />
+      <PropertyRef Name="teamIDretro" />
+    </Key>
+    <Property Name="yearID" Type="Int32" Nullable="false" />
+    <Property Name="lgID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="teamID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="franchID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="divID" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Rank" Type="Int32" Nullable="false" />
+    <Property Name="Ghome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DivWin" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="WCWin" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="LgWin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WSWin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="park" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="attendance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BPF" Type="Int32" Nullable="false" />
+    <Property Name="PPF" Type="Int32" Nullable="false" />
+    <Property Name="teamIDBR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="teamIDlahman45" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="teamIDretro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="DB_133455_mlbhistoryEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Appearances" EntityType="Self.Appearance" />
+    <EntitySet Name="Battings" EntityType="Self.Batting" />
+    <EntitySet Name="Pitchings" EntityType="Self.Pitching" />
+    <EntitySet Name="UniqueTeams" EntityType="Self.UniqueTeam" />
+    <EntitySet Name="ZTeams" EntityType="Self.ZTeam" />
+    <EntitySet Name="Masters" EntityType="Self.Master" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <FunctionImport Name="Batting1_app" ReturnType="Collection(DB_133455_mlbhistoryModel.Batting1_app_Result)">
+      <Parameter Name="team" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LeagueStats1" ReturnType="Collection(DB_133455_mlbhistoryModel.LeagueStats1_Result)">
+      <Parameter Name="yearID" Mode="In" Type="Int32" />
+      <Parameter Name="lgID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pitching1_app" ReturnType="Collection(DB_133455_mlbhistoryModel.Pitching1_app_Result)">
+      <Parameter Name="team" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="ZFieldings" EntityType="DB_133455_mlbhistoryModel.ZFielding" />
+    <EntitySet Name="FieldingYears" EntityType="DB_133455_mlbhistoryModel.FieldingYear" />
+    <FunctionImport Name="FieldingYear1_app" ReturnType="Collection(DB_133455_mlbhistoryModel.FieldingYear1_app_Result)">
+      <Parameter Name="team" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GamesByPosn1_app" ReturnType="Collection(DB_133455_mlbhistoryModel.GamesByPosn1_app_Result)">
+      <Parameter Name="team" Mode="In" Type="String" />
+      <Parameter Name="BldYear" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="Batting1_app_Result">
+    <Property Type="String" Name="playerID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="lgID" Nullable="false" MaxLength="3" />
+    <Property Type="Int32" Name="yearID" Nullable="false" />
+    <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="nameLast" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="nameFirst" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="UseName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="bats" Nullable="true" MaxLength="4" />
+    <Property Type="String" Name="throws" Nullable="true" MaxLength="4" />
+    <Property Type="String" Name="PlayerCategory" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="G" Nullable="true" />
+    <Property Type="Int32" Name="AB" Nullable="true" />
+    <Property Type="Int32" Name="R" Nullable="true" />
+    <Property Type="Int32" Name="H" Nullable="true" />
+    <Property Type="Int32" Name="C2B" Nullable="true" />
+    <Property Type="Int32" Name="C3B" Nullable="true" />
+    <Property Type="Int32" Name="HR" Nullable="true" />
+    <Property Type="Int32" Name="RBI" Nullable="true" />
+    <Property Type="Int32" Name="SB" Nullable="true" />
+    <Property Type="Int32" Name="CS" Nullable="true" />
+    <Property Type="Int32" Name="BB" Nullable="true" />
+    <Property Type="Int32" Name="SO" Nullable="true" />
+    <Property Type="Int32" Name="IBB" Nullable="true" />
+    <Property Type="Int32" Name="HBP" Nullable="true" />
+    <Property Type="Int32" Name="SH" Nullable="true" />
+    <Property Type="Int32" Name="SF" Nullable="true" />
+    <Property Type="Int32" Name="GIDP" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="LeagueStats1_Result">
+    <Property Type="Int32" Name="yearID" Nullable="false" />
+    <Property Type="String" Name="lgID" Nullable="false" MaxLength="3" />
+    <Property Type="Int32" Name="AB" Nullable="true" />
+    <Property Type="Int32" Name="H" Nullable="true" />
+    <Property Type="Int32" Name="C2B" Nullable="true" />
+    <Property Type="Int32" Name="C3B" Nullable="true" />
+    <Property Type="Int32" Name="HR" Nullable="true" />
+    <Property Type="Int32" Name="BB" Nullable="true" />
+    <Property Type="Int32" Name="IBB" Nullable="true" />
+    <Property Type="Int32" Name="SO" Nullable="true" />
+    <Property Type="Int32" Name="SB" Nullable="true" />
+    <Property Type="Int32" Name="CS" Nullable="true" />
+    <Property Type="Int32" Name="HBP" Nullable="true" />
+    <Property Type="Int32" Name="SH" Nullable="true" />
+    <Property Type="Int32" Name="SF" Nullable="true" />
+    <Property Type="Int32" Name="IPouts" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Pitching1_app_Result">
+    <Property Type="String" Name="playerID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="lgID" Nullable="false" MaxLength="3" />
+    <Property Type="Int32" Name="yearID" Nullable="false" />
+    <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="nameLast" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="nameFirst" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="UseName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="bats" Nullable="true" MaxLength="4" />
+    <Property Type="String" Name="throws" Nullable="true" MaxLength="4" />
+    <Property Type="Int32" Name="BFP" Nullable="true" />
+    <Property Type="Int32" Name="W" Nullable="true" />
+    <Property Type="Int32" Name="L" Nullable="true" />
+    <Property Type="Int32" Name="G" Nullable="true" />
+    <Property Type="Int32" Name="GS" Nullable="true" />
+    <Property Type="Int32" Name="SV" Nullable="true" />
+    <Property Type="Int32" Name="IPouts" Nullable="true" />
+    <Property Type="Int32" Name="H" Nullable="true" />
+    <Property Type="Int32" Name="ER" Nullable="true" />
+    <Property Type="Int32" Name="HR" Nullable="true" />
+    <Property Type="Int32" Name="BB" Nullable="true" />
+    <Property Type="Int32" Name="IBB" Nullable="true" />
+    <Property Type="Int32" Name="SO" Nullable="true" />
+    <Property Type="Int32" Name="WP" Nullable="true" />
+    <Property Type="Int32" Name="HBP" Nullable="true" />
+    <Property Type="Double" Name="ERA" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="ZFielding">
+    <Key>
+      <PropertyRef Name="playerID" />
+    </Key>
+    <Property Name="playerID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="nameFirst" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nameLast" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="p1" Type="Int16" />
+    <Property Name="p2" Type="Int16" />
+    <Property Name="p3" Type="Int16" />
+    <Property Name="p4" Type="Int16" />
+    <Property Name="p5" Type="Int16" />
+    <Property Name="p6" Type="Int16" />
+    <Property Name="p7" Type="Int16" />
+    <Property Name="p8" Type="Int16" />
+    <Property Name="p9" Type="Int16" />
+    <Property Name="Source" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+    <Property Name="debut" Type="DateTime" Precision="3" />
+    <Property Name="finalGame" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FieldingYear">
+    <Key>
+      <PropertyRef Name="PlayerID" />
+      <PropertyRef Name="Year" />
+      <PropertyRef Name="Team" />
+      <PropertyRef Name="Posn" />
+    </Key>
+    <Property Name="PlayerID" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Team" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="Posn" Type="Int16" Nullable="false" />
+    <Property Name="Lg" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="g" Type="Int16" />
+    <Property Name="inn" Type="Double" />
+    <Property Name="po" Type="Int16" />
+    <Property Name="a" Type="Int16" />
+    <Property Name="e" Type="Int16" />
+    <Property Name="dp" Type="Int16" />
+    <Property Name="Rtot" Type="Int16" />
+    <Property Name="RtotYr" Type="Int16" />
+    <Property Name="Skill" Type="Int16" />
+  </EntityType>
+  <ComplexType Name="FieldingYear1_app_Result">
+    <Property Type="String" Name="playerID" Nullable="false" MaxLength="9" />
+    <Property Type="Int32" Name="year" Nullable="false" />
+    <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="6" />
+    <Property Type="Int16" Name="Posn" Nullable="false" />
+    <Property Type="Double" Name="inn" Nullable="true" />
+    <Property Type="Int16" Name="po" Nullable="true" />
+    <Property Type="Int16" Name="a" Nullable="true" />
+    <Property Type="Int16" Name="e" Nullable="true" />
+    <Property Type="Int16" Name="dp" Nullable="true" />
+    <Property Type="Int16" Name="Rtot" Nullable="true" />
+    <Property Type="Int16" Name="RtotYr" Nullable="true" />
+    <Property Type="Int16" Name="Skill" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GamesByPosn1_app_Result">
+    <Property Type="String" Name="playerID" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="6" />
+    <Property Type="Int32" Name="yearID" Nullable="false" />
+    <Property Type="Int32" Name="G_all" Nullable="false" />
+    <Property Type="Int32" Name="GS" Nullable="true" />
+    <Property Type="Int32" Name="G_p" Nullable="true" />
+    <Property Type="Int32" Name="G_c" Nullable="true" />
+    <Property Type="Int32" Name="G_1b" Nullable="true" />
+    <Property Type="Int32" Name="G_2b" Nullable="true" />
+    <Property Type="Int32" Name="G_3b" Nullable="true" />
+    <Property Type="Int32" Name="G_ss" Nullable="true" />
+    <Property Type="Int32" Name="G_lf" Nullable="true" />
+    <Property Type="Int32" Name="G_cf" Nullable="true" />
+    <Property Type="Int32" Name="G_rf" Nullable="true" />
+    <Property Type="Int32" Name="G_of" Nullable="true" />
+    <Property Type="Int32" Name="G_dh" Nullable="true" />
+  </ComplexType>
+</Schema>

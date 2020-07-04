@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_133455_mlbhistoryModelStoreContainer" CdmEntityContainer="DB_133455_mlbhistoryEntities">
+    <EntitySetMapping Name="Appearances">
+      <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Appearance">
+        <MappingFragment StoreEntitySet="Appearances">
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="teamID" ColumnName="teamID" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="playerID" ColumnName="playerID" />
+          <ScalarProperty Name="G_all" ColumnName="G_all" />
+          <ScalarProperty Name="GS" ColumnName="GS" />
+          <ScalarProperty Name="G_batting" ColumnName="G_batting" />
+          <ScalarProperty Name="G_defense" ColumnName="G_defense" />
+          <ScalarProperty Name="G_p" ColumnName="G_p" />
+          <ScalarProperty Name="G_c" ColumnName="G_c" />
+          <ScalarProperty Name="G_1b" ColumnName="G_1b" />
+          <ScalarProperty Name="G_2b" ColumnName="G_2b" />
+          <ScalarProperty Name="G_3b" ColumnName="G_3b" />
+          <ScalarProperty Name="G_ss" ColumnName="G_ss" />
+          <ScalarProperty Name="G_lf" ColumnName="G_lf" />
+          <ScalarProperty Name="G_cf" ColumnName="G_cf" />
+          <ScalarProperty Name="G_rf" ColumnName="G_rf" />
+          <ScalarProperty Name="G_of" ColumnName="G_of" />
+          <ScalarProperty Name="G_dh" ColumnName="G_dh" />
+          <ScalarProperty Name="G_ph" ColumnName="G_ph" />
+          <ScalarProperty Name="G_pr" ColumnName="G_pr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Battings">
+      <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Batting">
+        <MappingFragment StoreEntitySet="Batting">
+          <ScalarProperty Name="playerID" ColumnName="playerID" />
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="stint" ColumnName="stint" />
+          <ScalarProperty Name="teamID" ColumnName="teamID" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="G" ColumnName="G" />
+          <ScalarProperty Name="AB" ColumnName="AB" />
+          <ScalarProperty Name="R" ColumnName="R" />
+          <ScalarProperty Name="H" ColumnName="H" />
+          <ScalarProperty Name="C2B" ColumnName="2B" />
+          <ScalarProperty Name="C3B" ColumnName="3B" />
+          <ScalarProperty Name="HR" ColumnName="HR" />
+          <ScalarProperty Name="RBI" ColumnName="RBI" />
+          <ScalarProperty Name="SB" ColumnName="SB" />
+          <ScalarProperty Name="CS" ColumnName="CS" />
+          <ScalarProperty Name="BB" ColumnName="BB" />
+          <ScalarProperty Name="SO" ColumnName="SO" />
+          <ScalarProperty Name="IBB" ColumnName="IBB" />
+          <ScalarProperty Name="HBP" ColumnName="HBP" />
+          <ScalarProperty Name="SH" ColumnName="SH" />
+          <ScalarProperty Name="SF" ColumnName="SF" />
+          <ScalarProperty Name="GIDP" ColumnName="GIDP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pitchings">
+      <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Pitching">
+        <MappingFragment StoreEntitySet="Pitching">
+          <ScalarProperty Name="playerID" ColumnName="playerID" />
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="stint" ColumnName="stint" />
+          <ScalarProperty Name="teamID" ColumnName="teamID" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="W" ColumnName="W" />
+          <ScalarProperty Name="L" ColumnName="L" />
+          <ScalarProperty Name="G" ColumnName="G" />
+          <ScalarProperty Name="GS" ColumnName="GS" />
+          <ScalarProperty Name="CG" ColumnName="CG" />
+          <ScalarProperty Name="SHO" ColumnName="SHO" />
+          <ScalarProperty Name="SV" ColumnName="SV" />
+          <ScalarProperty Name="IPouts" ColumnName="IPouts" />
+          <ScalarProperty Name="H" ColumnName="H" />
+          <ScalarProperty Name="ER" ColumnName="ER" />
+          <ScalarProperty Name="HR" ColumnName="HR" />
+          <ScalarProperty Name="BB" ColumnName="BB" />
+          <ScalarProperty Name="SO" ColumnName="SO" />
+          <ScalarProperty Name="BAOpp" ColumnName="BAOpp" />
+          <ScalarProperty Name="ERA" ColumnName="ERA" />
+          <ScalarProperty Name="IBB" ColumnName="IBB" />
+          <ScalarProperty Name="WP" ColumnName="WP" />
+          <ScalarProperty Name="HBP" ColumnName="HBP" />
+          <ScalarProperty Name="BK" ColumnName="BK" />
+          <ScalarProperty Name="BFP" ColumnName="BFP" />
+          <ScalarProperty Name="GF" ColumnName="GF" />
+          <ScalarProperty Name="R" ColumnName="R" />
+          <ScalarProperty Name="SH" ColumnName="SH" />
+          <ScalarProperty Name="SF" ColumnName="SF" />
+          <ScalarProperty Name="GIDP" ColumnName="GIDP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UniqueTeams">
+      <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.UniqueTeam">
+        <MappingFragment StoreEntitySet="UniqueTeams">
+          <ScalarProperty Name="teamID" ColumnName="teamID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+          <ScalarProperty Name="LineName" ColumnName="LineName" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UsesDH" ColumnName="UsesDH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZTeams">
+      <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.ZTeam">
+        <MappingFragment StoreEntitySet="ZTeams">
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="teamID" ColumnName="teamID" />
+          <ScalarProperty Name="ZTeam1" ColumnName="ZTeam" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="LineName" ColumnName="LineName" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UsesDH" ColumnName="UsesDH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Masters">
+      <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Master">
+        <MappingFragment StoreEntitySet="Master">
+          <ScalarProperty Name="playerID" ColumnName="playerID" />
+          <ScalarProperty Name="birthYear" ColumnName="birthYear" />
+          <ScalarProperty Name="birthMonth" ColumnName="birthMonth" />
+          <ScalarProperty Name="birthDay" ColumnName="birthDay" />
+          <ScalarProperty Name="birthCountry" ColumnName="birthCountry" />
+          <ScalarProperty Name="birthState" ColumnName="birthState" />
+          <ScalarProperty Name="birthCity" ColumnName="birthCity" />
+          <ScalarProperty Name="deathYear" ColumnName="deathYear" />
+          <ScalarProperty Name="deathMonth" ColumnName="deathMonth" />
+          <ScalarProperty Name="deathDay" ColumnName="deathDay" />
+          <ScalarProperty Name="deathCountry" ColumnName="deathCountry" />
+          <ScalarProperty Name="deathState" ColumnName="deathState" />
+          <ScalarProperty Name="deathCity" ColumnName="deathCity" />
+          <ScalarProperty Name="nameFirst" ColumnName="nameFirst" />
+          <ScalarProperty Name="nameLast" ColumnName="nameLast" />
+          <ScalarProperty Name="nameGiven" ColumnName="nameGiven" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="height" ColumnName="height" />
+          <ScalarProperty Name="bats" ColumnName="bats" />
+          <ScalarProperty Name="throws" ColumnName="throws" />
+          <ScalarProperty Name="debut" ColumnName="debut" />
+          <ScalarProperty Name="finalGame" ColumnName="finalGame" />
+          <ScalarProperty Name="retroID" ColumnName="retroID" />
+          <ScalarProperty Name="bbrefID" ColumnName="bbrefID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Team">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="teamID" ColumnName="teamID" />
+          <ScalarProperty Name="franchID" ColumnName="franchID" />
+          <ScalarProperty Name="divID" ColumnName="divID" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="Ghome" ColumnName="Ghome" />
+          <ScalarProperty Name="DivWin" ColumnName="DivWin" />
+          <ScalarProperty Name="WCWin" ColumnName="WCWin" />
+          <ScalarProperty Name="LgWin" ColumnName="LgWin" />
+          <ScalarProperty Name="WSWin" ColumnName="WSWin" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="park" ColumnName="park" />
+          <ScalarProperty Name="attendance" ColumnName="attendance" />
+          <ScalarProperty Name="BPF" ColumnName="BPF" />
+          <ScalarProperty Name="PPF" ColumnName="PPF" />
+          <ScalarProperty Name="teamIDBR" ColumnName="teamIDBR" />
+          <ScalarProperty Name="teamIDlahman45" ColumnName="teamIDlahman45" />
+          <ScalarProperty Name="teamIDretro" ColumnName="teamIDretro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Batting1_app" FunctionName="DB_133455_mlbhistoryModel.Store.Batting1_app">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.Batting1_app_Result">
+          <ScalarProperty Name="playerID" ColumnName="playerID" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+          <ScalarProperty Name="nameLast" ColumnName="nameLast" />
+          <ScalarProperty Name="nameFirst" ColumnName="nameFirst" />
+          <ScalarProperty Name="UseName" ColumnName="UseName" />
+          <ScalarProperty Name="bats" ColumnName="bats" />
+          <ScalarProperty Name="throws" ColumnName="throws" />
+          <ScalarProperty Name="PlayerCategory" ColumnName="PlayerCategory" />
+          <ScalarProperty Name="G" ColumnName="G" />
+          <ScalarProperty Name="AB" ColumnName="AB" />
+          <ScalarProperty Name="R" ColumnName="R" />
+          <ScalarProperty Name="H" ColumnName="H" />
+          <ScalarProperty Name="C2B" ColumnName="2B" />
+          <ScalarProperty Name="C3B" ColumnName="3B" />
+          <ScalarProperty Name="HR" ColumnName="HR" />
+          <ScalarProperty Name="RBI" ColumnName="RBI" />
+          <ScalarProperty Name="SB" ColumnName="SB" />
+          <ScalarProperty Name="CS" ColumnName="CS" />
+          <ScalarProperty Name="BB" ColumnName="BB" />
+          <ScalarProperty Name="SO" ColumnName="SO" />
+          <ScalarProperty Name="IBB" ColumnName="IBB" />
+          <ScalarProperty Name="HBP" ColumnName="HBP" />
+          <ScalarProperty Name="SH" ColumnName="SH" />
+          <ScalarProperty Name="SF" ColumnName="SF" />
+          <ScalarProperty Name="GIDP" ColumnName="GIDP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GamesByPosn1_app" FunctionName="DB_133455_mlbhistoryModel.Store.GamesByPosn1_app">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.GamesByPosn1_app_Result">
+          <ScalarProperty Name="playerID" ColumnName="playerID" />
+          <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="G_p" ColumnName="G_p" />
+          <ScalarProperty Name="G_c" ColumnName="G_c" />
+          <ScalarProperty Name="G_1b" ColumnName="G_1b" />
+          <ScalarProperty Name="G_2b" ColumnName="G_2b" />
+          <ScalarProperty Name="G_3b" ColumnName="G_3b" />
+          <ScalarProperty Name="G_ss" ColumnName="G_ss" />
+          <ScalarProperty Name="G_lf" ColumnName="G_lf" />
+          <ScalarProperty Name="G_cf" ColumnName="G_cf" />
+          <ScalarProperty Name="G_rf" ColumnName="G_rf" />
+          <ScalarProperty Name="G_of" ColumnName="G_of" />
+          <ScalarProperty Name="G_dh" ColumnName="G_dh" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LeagueStats1" FunctionName="DB_133455_mlbhistoryModel.Store.LeagueStats1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.LeagueStats1_Result">
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="AB" ColumnName="AB" />
+          <ScalarProperty Name="H" ColumnName="H" />
+          <ScalarProperty Name="C2B" ColumnName="2B" />
+          <ScalarProperty Name="C3B" ColumnName="3B" />
+          <ScalarProperty Name="HR" ColumnName="HR" />
+          <ScalarProperty Name="BB" ColumnName="BB" />
+          <ScalarProperty Name="IBB" ColumnName="IBB" />
+          <ScalarProperty Name="SO" ColumnName="SO" />
+          <ScalarProperty Name="SB" ColumnName="SB" />
+          <ScalarProperty Name="CS" ColumnName="CS" />
+          <ScalarProperty Name="HBP" ColumnName="HBP" />
+          <ScalarProperty Name="SH" ColumnName="SH" />
+          <ScalarProperty Name="SF" ColumnName="SF" />
+          <ScalarProperty Name="IPouts" ColumnName="IPouts" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pitching1_app" FunctionName="DB_133455_mlbhistoryModel.Store.Pitching1_app">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.Pitching1_app_Result">
+          <ScalarProperty Name="playerID" ColumnName="playerID" />
+          <ScalarProperty Name="lgID" ColumnName="lgID" />
+          <ScalarProperty Name="yearID" ColumnName="yearID" />
+          <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+          <ScalarProperty Name="nameLast" ColumnName="nameLast" />
+          <ScalarProperty Name="nameFirst" ColumnName="nameFirst" />
+          <ScalarProperty Name="UseName" ColumnName="UseName" />
+          <ScalarProperty Name="bats" ColumnName="bats" />
+          <ScalarProperty Name="throws" ColumnName="throws" />
+          <ScalarProperty Name="BFP" ColumnName="BFP" />
+          <ScalarProperty Name="W" ColumnName="W" />
+          <ScalarProperty Name="L" ColumnName="L" />
+          <ScalarProperty Name="G" ColumnName="G" />
+          <ScalarProperty Name="GS" ColumnName="GS" />
+          <ScalarProperty Name="SV" ColumnName="SV" />
+          <ScalarProperty Name="IPouts" ColumnName="IPouts" />
+          <ScalarProperty Name="H" ColumnName="H" />
+          <ScalarProperty Name="ER" ColumnName="ER" />
+          <ScalarProperty Name="HR" ColumnName="HR" />
+          <ScalarProperty Name="BB" ColumnName="BB" />
+          <ScalarProperty Name="IBB" ColumnName="IBB" />
+          <ScalarProperty Name="SO" ColumnName="SO" />
+          <ScalarProperty Name="WP" ColumnName="WP" />
+          <ScalarProperty Name="HBP" ColumnName="HBP" />
+          <ScalarProperty Name="ERA" ColumnName="ERA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

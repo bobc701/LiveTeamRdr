@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_133455_mlbhistoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Appearances">
+    <Key>
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="teamID" />
+      <PropertyRef Name="playerID" />
+    </Key>
+    <Property Name="yearID" Type="int" Nullable="false" />
+    <Property Name="teamID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="lgID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="playerID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="G_all" Type="int" Nullable="false" />
+    <Property Name="GS" Type="int" />
+    <Property Name="G_batting" Type="int" />
+    <Property Name="G_defense" Type="int" />
+    <Property Name="G_p" Type="int" />
+    <Property Name="G_c" Type="int" />
+    <Property Name="G_1b" Type="int" />
+    <Property Name="G_2b" Type="int" />
+    <Property Name="G_3b" Type="int" />
+    <Property Name="G_ss" Type="int" />
+    <Property Name="G_lf" Type="int" />
+    <Property Name="G_cf" Type="int" />
+    <Property Name="G_rf" Type="int" />
+    <Property Name="G_of" Type="int" />
+    <Property Name="G_dh" Type="int" />
+    <Property Name="G_ph" Type="int" />
+    <Property Name="G_pr" Type="int" />
+  </EntityType>
+  <EntityType Name="Batting">
+    <Key>
+      <PropertyRef Name="playerID" />
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="stint" />
+    </Key>
+    <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="yearID" Type="int" Nullable="false" />
+    <Property Name="stint" Type="int" Nullable="false" />
+    <Property Name="teamID" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="lgID" Type="nvarchar" MaxLength="3" Nullable="false" />
+    <Property Name="G" Type="int" Nullable="false" />
+    <Property Name="AB" Type="int" Nullable="false" />
+    <Property Name="R" Type="int" Nullable="false" />
+    <Property Name="H" Type="int" Nullable="false" />
+    <Property Name="2B" Type="int" Nullable="false" />
+    <Property Name="3B" Type="int" Nullable="false" />
+    <Property Name="HR" Type="int" Nullable="false" />
+    <Property Name="RBI" Type="int" />
+    <Property Name="SB" Type="int" />
+    <Property Name="CS" Type="int" />
+    <Property Name="BB" Type="int" />
+    <Property Name="SO" Type="int" />
+    <Property Name="IBB" Type="int" />
+    <Property Name="HBP" Type="int" />
+    <Property Name="SH" Type="int" />
+    <Property Name="SF" Type="int" />
+    <Property Name="GIDP" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Master">
+    <Key>
+      <PropertyRef Name="playerID" />
+    </Key>
+    <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="birthYear" Type="int" />
+    <Property Name="birthMonth" Type="int" />
+    <Property Name="birthDay" Type="int" />
+    <Property Name="birthCountry" Type="nvarchar" MaxLength="50" />
+    <Property Name="birthState" Type="nvarchar" MaxLength="50" />
+    <Property Name="birthCity" Type="nvarchar" MaxLength="50" />
+    <Property Name="deathYear" Type="int" />
+    <Property Name="deathMonth" Type="int" />
+    <Property Name="deathDay" Type="int" />
+    <Property Name="deathCountry" Type="nvarchar" MaxLength="50" />
+    <Property Name="deathState" Type="nvarchar" MaxLength="50" />
+    <Property Name="deathCity" Type="nvarchar" MaxLength="50" />
+    <Property Name="nameFirst" Type="nvarchar" MaxLength="50" />
+    <Property Name="nameLast" Type="nvarchar" MaxLength="50" />
+    <Property Name="nameGiven" Type="nvarchar" MaxLength="50" />
+    <Property Name="weight" Type="int" />
+    <Property Name="height" Type="int" />
+    <Property Name="bats" Type="nvarchar" MaxLength="4" />
+    <Property Name="throws" Type="nvarchar" MaxLength="4" />
+    <Property Name="debut" Type="datetime" />
+    <Property Name="finalGame" Type="datetime" />
+    <Property Name="retroID" Type="nvarchar" MaxLength="10" />
+    <Property Name="bbrefID" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Pitching">
+    <Key>
+      <PropertyRef Name="playerID" />
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="stint" />
+    </Key>
+    <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="yearID" Type="int" Nullable="false" />
+    <Property Name="stint" Type="int" Nullable="false" />
+    <Property Name="teamID" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="lgID" Type="nvarchar" MaxLength="3" Nullable="false" />
+    <Property Name="W" Type="int" Nullable="false" />
+    <Property Name="L" Type="int" Nullable="false" />
+    <Property Name="G" Type="int" Nullable="false" />
+    <Property Name="GS" Type="int" Nullable="false" />
+    <Property Name="CG" Type="int" Nullable="false" />
+    <Property Name="SHO" Type="int" Nullable="false" />
+    <Property Name="SV" Type="int" Nullable="false" />
+    <Property Name="IPouts" Type="int" Nullable="false" />
+    <Property Name="H" Type="int" Nullable="false" />
+    <Property Name="ER" Type="int" Nullable="false" />
+    <Property Name="HR" Type="int" Nullable="false" />
+    <Property Name="BB" Type="int" Nullable="false" />
+    <Property Name="SO" Type="int" Nullable="false" />
+    <Property Name="BAOpp" Type="float" />
+    <Property Name="ERA" Type="float" />
+    <Property Name="IBB" Type="int" />
+    <Property Name="WP" Type="int" />
+    <Property Name="HBP" Type="int" />
+    <Property Name="BK" Type="int" />
+    <Property Name="BFP" Type="int" />
+    <Property Name="GF" Type="int" />
+    <Property Name="R" Type="int" />
+    <Property Name="SH" Type="int" />
+    <Property Name="SF" Type="int" />
+    <Property Name="GIDP" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="lgID" />
+      <PropertyRef Name="teamID" />
+      <PropertyRef Name="franchID" />
+      <PropertyRef Name="Rank" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="BPF" />
+      <PropertyRef Name="PPF" />
+      <PropertyRef Name="teamIDBR" />
+      <PropertyRef Name="teamIDlahman45" />
+      <PropertyRef Name="teamIDretro" />
+    </Key>
+    <Property Name="yearID" Type="int" Nullable="false" />
+    <Property Name="lgID" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="teamID" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="franchID" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="divID" Type="nvarchar" MaxLength="1" />
+    <Property Name="Rank" Type="int" Nullable="false" />
+    <Property Name="Ghome" Type="nvarchar" MaxLength="50" />
+    <Property Name="DivWin" Type="nvarchar" MaxLength="1" />
+    <Property Name="WCWin" Type="nvarchar" MaxLength="1" />
+    <Property Name="LgWin" Type="nvarchar" MaxLength="50" />
+    <Property Name="WSWin" Type="nvarchar" MaxLength="50" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="park" Type="nvarchar" MaxLength="100" />
+    <Property Name="attendance" Type="nvarchar" MaxLength="50" />
+    <Property Name="BPF" Type="int" Nullable="false" />
+    <Property Name="PPF" Type="int" Nullable="false" />
+    <Property Name="teamIDBR" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="teamIDlahman45" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="teamIDretro" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UniqueTeams">
+    <Key>
+      <PropertyRef Name="teamID" />
+    </Key>
+    <Property Name="teamID" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="lgID" Type="nvarchar" MaxLength="6" />
+    <Property Name="ZTeam" Type="nvarchar" MaxLength="6" />
+    <Property Name="LineName" Type="nvarchar" MaxLength="6" />
+    <Property Name="City" Type="nvarchar" MaxLength="30" />
+    <Property Name="NickName" Type="nvarchar" MaxLength="30" />
+    <Property Name="UsesDH" Type="bit" />
+  </EntityType>
+  <EntityType Name="ZTeams">
+    <Key>
+      <PropertyRef Name="yearID" />
+      <PropertyRef Name="teamID" />
+    </Key>
+    <Property Name="yearID" Type="int" Nullable="false" />
+    <Property Name="teamID" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="ZTeam" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="lgID" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="LineName" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="NickName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="UsesDH" Type="bit" Nullable="false" />
+  </EntityType>
+  <Function Name="Batting1_app" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="team" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GamesByPosn1_app" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="team" Type="nvarchar" Mode="In" />
+    <Parameter Name="BldYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="LeagueStats1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="yearID" Type="int" Mode="In" />
+    <Parameter Name="lgID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Pitching1_app" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="team" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="DB_133455_mlbhistoryModelStoreContainer">
+    <EntitySet Name="Appearances" EntityType="Self.Appearances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Batting" EntityType="Self.Batting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pitching" EntityType="Self.Pitching" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UniqueTeams" EntityType="Self.UniqueTeams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZTeams" EntityType="Self.ZTeams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master" EntityType="Self.Master" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Master].[playerID] AS [playerID], 
+    [Master].[birthYear] AS [birthYear], 
+    [Master].[birthMonth] AS [birthMonth], 
+    [Master].[birthDay] AS [birthDay], 
+    [Master].[birthCountry] AS [birthCountry], 
+    [Master].[birthState] AS [birthState], 
+    [Master].[birthCity] AS [birthCity], 
+    [Master].[deathYear] AS [deathYear], 
+    [Master].[deathMonth] AS [deathMonth], 
+    [Master].[deathDay] AS [deathDay], 
+    [Master].[deathCountry] AS [deathCountry], 
+    [Master].[deathState] AS [deathState], 
+    [Master].[deathCity] AS [deathCity], 
+    [Master].[nameFirst] AS [nameFirst], 
+    [Master].[nameLast] AS [nameLast], 
+    [Master].[nameGiven] AS [nameGiven], 
+    [Master].[weight] AS [weight], 
+    [Master].[height] AS [height], 
+    [Master].[bats] AS [bats], 
+    [Master].[throws] AS [throws], 
+    [Master].[debut] AS [debut], 
+    [Master].[finalGame] AS [finalGame], 
+    [Master].[retroID] AS [retroID], 
+    [Master].[bbrefID] AS [bbrefID]
+    FROM [dbo].[Master] AS [Master]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Teams" EntityType="Self.Teams" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Teams].[yearID] AS [yearID], 
+    [Teams].[lgID] AS [lgID], 
+    [Teams].[teamID] AS [teamID], 
+    [Teams].[franchID] AS [franchID], 
+    [Teams].[divID] AS [divID], 
+    [Teams].[Rank] AS [Rank], 
+    [Teams].[Ghome] AS [Ghome], 
+    [Teams].[DivWin] AS [DivWin], 
+    [Teams].[WCWin] AS [WCWin], 
+    [Teams].[LgWin] AS [LgWin], 
+    [Teams].[WSWin] AS [WSWin], 
+    [Teams].[name] AS [name], 
+    [Teams].[park] AS [park], 
+    [Teams].[attendance] AS [attendance], 
+    [Teams].[BPF] AS [BPF], 
+    [Teams].[PPF] AS [PPF], 
+    [Teams].[teamIDBR] AS [teamIDBR], 
+    [Teams].[teamIDlahman45] AS [teamIDlahman45], 
+    [Teams].[teamIDretro] AS [teamIDretro]
+    FROM [dbo].[Teams] AS [Teams]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
