@@ -44,18 +44,28 @@ namespace LiveTeamRdrApi.BusinessLogic {
          ComputeDefense(dh: true);
          ComputeLineup(dh: true);
 
-         WriteCDB();
+         var team = new CTeamInfo();
+         WriteCDB(team);
 
-         return new CTeamInfo();
+         return team;
 
       }
 
+      private const int MAX_BATTERS = 14;
+      private const int MAX_STARTERS = 6;
+      private const int MAX_CLOSERS = 2;
+      private const int MAX_OTHERS = 3;
+      private const int MAX_ROSTER = 25;
 
-      private void WriteCDB() {
+
+
+
+      private void WriteCDB(CTeamInfo team) {
          // ------------------------------------------
-         var team = new CTeamInfo();
-         var ListB = new List<string>();
-         var ListP = new List<string>();
+         var listB = new List<string>();
+         var listP = new List<string>();
+         IEnumerable<ZBatting> listb;
+         IEnumerable<ZPitching> listp;
 
          void AddToList(List<string> list1, string playerId) {
             // -----------------------------------------------------------
@@ -64,12 +74,148 @@ namespace LiveTeamRdrApi.BusinessLogic {
             }
          }
 
+         // --------------------------------------------
+         // Build ListB and ListP with playerID's
+         // --------------------------------------------
+
+         // -- Starters (1 pitcher + batters w/ posn, slot, posndh, or slotdh (to ListP & ListB)
+
+         listb = zbatting1.Where(bat => bat.slot != 0 || bat.slotDh != 0);
+         foreach (ZBatting bat in listb) {
+            if (bat.posn == 1 || bat.posnDh == 1) AddToList(listP, bat.playerID);
+            else AddToList(listB, bat.playerID);
+         }
+
+         // -- Pitchers (to ListP)
+
+         listp = zpitching1.OrderByDescending(pit => pit.GS);
+         foreach (ZPitching pit in listp) {
+            if (listP.Count >= MAX_STARTERS) break;
+            AddToList(listP, pit.PlayerID);
+         }
+
+         // -- Closers (to ListP)
+
+         listp = zpitching1.OrderByDescending(pit => pit.SV);
+         foreach (ZPitching pit in listp) {
+            if (listP.Count >= MAX_STARTERS + MAX_CLOSERS) break;
+            AddToList(listP, pit.PlayerID);
+         }
+
+         // -- Other pitchers (to ListP)
+
+         listp = zpitching1.OrderByDescending(pit => pit.IPouts);
+         foreach (ZPitching pit in listp) {
+            if (listP.Count >= MAX_STARTERS + MAX_CLOSERS + MAX_OTHERS) break;
+            AddToList(listP, pit.PlayerID);
+         }
+
+         // -- More batters... (to listB)
+
+         listb = zbatting1.OrderByDescending(bat => bat.AB);
+         foreach (ZBatting bat in listb) {
+            if (listB.Count + listP.Count >= MAX_ROSTER) break;
+            AddToList(listB, bat.playerID);
+         }
 
 
+         // --------------------------------------
+         // Construct the CTeamInfo object
+         // --------------------------------------
 
-      }      
+         // new CTeamInfo: 'team' (See above)
 
-      private void ComputeLineup(bool dh) {
+         // Enter scalary data: name, cit, nickname, etc
+
+         team.Team = zteam1.ZTeam1;
+         team.YearID = zteam1.yearID;
+         team.City = zteam1.City;
+         team.NickName = zteam1.NickName;
+         team.LineName = zteam1.LineName;
+
+         // team.LeagueStats: new CBattingStats object, add scalars: pa, ab, etc
+
+         team.leagueStats = new CBattingStats {
+            pa = zleagueStats1.PA,
+            ab = zleagueStats1.AB,
+            h = zleagueStats1.H,
+            b2 = zleagueStats1.B2,
+            b3 = zleagueStats1.B3,
+            hr = zleagueStats1.HR,
+            so = zleagueStats1.SO,
+            sh = zleagueStats1.SH,
+            sf = zleagueStats1.SF,
+            bb = zleagueStats1.BB,
+            ibb = zleagueStats1.IBB,
+            hbp = zleagueStats1.HBP,
+            sb = zleagueStats1.SB,
+            cs = zleagueStats1.CS,
+            ipOuts = zleagueStats1.IPouts
+         };
+
+
+         // team.PlayerInfo: new List<CPlayerInfo>()
+
+         team.PlayerInfo = new List<CPlayerInfo>();
+         var listBoth = listB.Concat(listP);
+         foreach (string id in listBoth) {
+            var bat1 = zbatting1.First(b => b.playerID == id);
+            var pit1 = zpitching1.FirstOrDefault(p => p.PlayerID == id); // Will be null for non-pitcher
+
+            var player = new CPlayerInfo() {
+               UseName = bat1.UseName,
+               UseName2 = bat1.UseName2,
+               SkillStr = bat1.SkillStr,
+               Playercategory = pit1 == null ? 'B' : 'P',
+               slot = bat1.slot,
+               posn = bat1.posn,
+               slotdh = bat1.slotDh,
+               posnDh = bat1.posnDh,
+               battingStats = new CBattingStats {
+                  pa = bat1.PA,
+                  ab = bat1.AB,
+                  h = bat1.H,
+                  b2 = bat1.B2,
+                  b3 = bat1.B3,
+                  hr = bat1.HR,
+                  so = bat1.SO,
+                  sh = bat1.SH,
+                  sf = bat1.SF,
+                  bb = bat1.BB,
+                  ibb = bat1.IBB,
+                  hbp = bat1.HBP,
+                  sb = bat1.SB,
+                  cs = bat1.CS,
+                  ipOuts = null // Only for league stats
+               },
+               pitchingStats = pit1 == null ? null : new CPitchingStats {
+                  g = pit1.G,
+                  gs = pit1.GS,
+                  w = pit1.W,
+                  l = pit1.L,
+                  bfp = pit1.BFP,
+                  ipOuts = pit1.IPouts,
+                  h = pit1.H,
+                  er = pit1.ER,
+                  hr = pit1.HR,
+                  so = pit1.SO,
+                  bb = pit1.BB,
+                  ibb = pit1.IBB,
+                  sv = pit1.SV
+               }
+
+            };
+            team.PlayerInfo.Add(player);
+         }
+
+      }
+
+   }
+
+}
+
+
+private void ComputeLineup(bool dh) {
       // ------------------------------------------------------
       // We have already filled posn and posnDh, and so now we
       // will assign those players with slot and slotDh, respectively.

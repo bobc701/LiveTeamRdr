@@ -24,6 +24,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public Nullable<int> SF { get; set; }
       public Nullable<int> IPouts { get; set; }
 
+      public int? PA { get => AB + BB + HBP + SH + SF; }
 
    }
 

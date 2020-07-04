@@ -21,13 +21,13 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public string bats { get; set; }
       public string throws { get; set; }
       public string PlayerCategory { get; set; }
-      public Nullable<int> G { get; set; }
-      public Nullable<int> AB { get; set; }
-      public Nullable<int> R { get; set; }
-      public Nullable<int> H { get; set; }
-      public Nullable<int> B2 { get; set; }
-      public Nullable<int> B3 { get; set; }
-      public Nullable<int> HR { get; set; }
+      public int? G { get; set; }
+      public int? AB { get; set; }
+      public int? R { get; set; }
+      public int? H { get; set; }
+      public int? B2 { get; set; }
+      public int? B3 { get; set; }
+      public int? HR { get; set; }
       public Nullable<int> RBI { get; set; }
       public Nullable<int> SB { get; set; }
       public Nullable<int> CS { get; set; }
@@ -39,6 +39,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public Nullable<int> SF { get; set; }
       public Nullable<int> GIDP { get; set; }
 
+      public int? PA { get => AB + BB + HBP + SH + SF; }
 
       public int slot { get; set; }
       public int posn { get; set; }

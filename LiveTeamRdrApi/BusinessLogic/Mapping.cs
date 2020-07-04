@@ -123,7 +123,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
                BFP = statsIn.BFP,
                G = statsIn.G,
                GS = statsIn.GS,
-               IP = statsIn.IPouts, // IPx3
+               IPouts = statsIn.IPouts, // IPx3
                H = statsIn.H,
                HR = statsIn.HR,
                BB = statsIn.BB,

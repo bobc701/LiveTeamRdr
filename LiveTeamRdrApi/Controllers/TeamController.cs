@@ -79,7 +79,7 @@ namespace LiveTeamRdrApi.Controllers
                   posn = 1,
                   slotdh = 0,
                   posnDh = 9,
-                  batterStats = new CBattingStats(),
+                  battingStats = new CBattingStats(),
                   Playercategory = 'P',
                   pitchingStats = new CPitchingStats()
                },
@@ -91,7 +91,7 @@ namespace LiveTeamRdrApi.Controllers
                   posn = 0,
                   slotdh = 0,
                   posnDh = 0,
-                  batterStats = new CBattingStats(),
+                  battingStats = new CBattingStats(),
                   Playercategory = 'B',
                   pitchingStats = null
                }
