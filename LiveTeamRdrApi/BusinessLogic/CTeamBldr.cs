@@ -20,7 +20,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
 
 
-      public CTeamInfo ConstructTeam(string teamTag, int year) {
+      public DTO_TeamInfo ConstructTeam(string teamTag, int year) {
       // -----------------------------------------------------------
          var ctx = new DB_133455_mlbhistoryEntities1();
 
@@ -44,7 +44,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          ComputeDefense(dh: true);
          ComputeLineup(dh: true);
 
-         var team = new CTeamInfo();
+         var team = new DTO_TeamInfo();
          WriteCDB(team);
 
          return team;
@@ -58,9 +58,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       private const int MAX_ROSTER = 25;
 
 
-
-
-      private void WriteCDB(CTeamInfo team) {
+      private void WriteCDB(DTO_TeamInfo team) {
          // ------------------------------------------
          var listB = new List<string>();
          var listP = new List<string>();
@@ -78,7 +76,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          // Build ListB and ListP with playerID's
          // --------------------------------------------
 
-         // -- Starters (1 pitcher + batters w/ posn, slot, posndh, or slotdh (to ListP & ListB)
+         // -- Starters (1 pitcher + batters w/ slot or slotdh (to ListP & ListB)
 
          listb = zbatting1.Where(bat => bat.slot != 0 || bat.slotDh != 0);
          foreach (ZBatting bat in listb) {
@@ -123,9 +121,6 @@ namespace LiveTeamRdrApi.BusinessLogic {
          // Construct the CTeamInfo object
          // --------------------------------------
 
-         // new CTeamInfo: 'team' (See above)
-
-         // Enter scalary data: name, cit, nickname, etc
 
          team.Team = zteam1.ZTeam1;
          team.YearID = zteam1.yearID;
@@ -135,7 +130,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
          // team.LeagueStats: new CBattingStats object, add scalars: pa, ab, etc
 
-         team.leagueStats = new CBattingStats {
+         team.leagueStats = new DTO_BattingStats {
             pa = zleagueStats1.PA,
             ab = zleagueStats1.AB,
             h = zleagueStats1.H,
@@ -156,13 +151,13 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
          // team.PlayerInfo: new List<CPlayerInfo>()
 
-         team.PlayerInfo = new List<CPlayerInfo>();
+         team.PlayerInfo = new List<DTO_PlayerInfo>();
          var listBoth = listB.Concat(listP);
          foreach (string id in listBoth) {
             var bat1 = zbatting1.First(b => b.playerID == id);
             var pit1 = zpitching1.FirstOrDefault(p => p.PlayerID == id); // Will be null for non-pitcher
 
-            var player = new CPlayerInfo() {
+            var player = new DTO_PlayerInfo() {
                UseName = bat1.UseName,
                UseName2 = bat1.UseName2,
                SkillStr = bat1.SkillStr,
@@ -171,7 +166,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
                posn = bat1.posn,
                slotdh = bat1.slotDh,
                posnDh = bat1.posnDh,
-               battingStats = new CBattingStats {
+               battingStats = new DTO_BattingStats {
                   pa = bat1.PA,
                   ab = bat1.AB,
                   h = bat1.H,
@@ -188,7 +183,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
                   cs = bat1.CS,
                   ipOuts = null // Only for league stats
                },
-               pitchingStats = pit1 == null ? null : new CPitchingStats {
+               pitchingStats = pit1 == null ? null : new DTO_PitchingStats {
                   g = pit1.G,
                   gs = pit1.GS,
                   w = pit1.W,
@@ -210,12 +205,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
       }
 
-   }
 
-}
-
-
-private void ComputeLineup(bool dh) {
+      private void ComputeLineup(bool dh) {
       // ------------------------------------------------------
       // We have already filled posn and posnDh, and so now we
       // will assign those players with slot and slotDh, respectively.
@@ -590,10 +581,6 @@ private void ComputeLineup(bool dh) {
 
       }
 
-
    }
-
-
-
 
 }

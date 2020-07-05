@@ -15,10 +15,10 @@ namespace LiveTeamRdrApi.Controllers
       // GET: api/Team/{teamTag}/{year:int}
       [Route("api/team/{teamTag}/{year:int}")]
       [HttpGet]
-      public CTeamInfo GetTeam(string teamTag, int year) {
+      public DTO_TeamInfo GetTeam(string teamTag, int year) {
       // --------------------------------------------------
          var bldr = new CTeamBldr();
-         CTeamInfo team1 = bldr.ConstructTeam(teamTag, year);
+         DTO_TeamInfo team1 = bldr.ConstructTeam(teamTag, year);
 
          return team1;
       }
@@ -31,7 +31,7 @@ namespace LiveTeamRdrApi.Controllers
       public List<ZBatting> GetTeam2(string teamTag, int year) {
       // --------------------------------------------------
          var bldr = new CTeamBldr();
-         CTeamInfo team1 = bldr.ConstructTeam(teamTag, year);
+         DTO_TeamInfo team1 = bldr.ConstructTeam(teamTag, year);
 
          return bldr.zbatting1;
       }
@@ -60,18 +60,17 @@ namespace LiveTeamRdrApi.Controllers
 
       [Route("api/test/{teamTag}/{year:int}")]
       [HttpGet]
-      public CTeamInfo GetTest(string teamTag, int year) {
+      public DTO_TeamInfo GetTest(string teamTag, int year) {
       // --------------------------------------------------
 
-         var team = new CTeamInfo {
+         var team = new DTO_TeamInfo {
             Team = teamTag + year.ToString(),
             City = "New York",
             NickName = "Mets",
             LineName = "NYM",
-            leagueIP = 65000,
-            leagueStats = new CBattingStats(),
-            PlayerInfo = new List<CPlayerInfo> {
-               new CPlayerInfo {
+            leagueStats = new DTO_BattingStats(),
+            PlayerInfo = new List<DTO_PlayerInfo> {
+               new DTO_PlayerInfo {
                   UseName = "Seaver",
                   UseName2 = "T.Seaver",
                   SkillStr = "4--------",
@@ -79,11 +78,11 @@ namespace LiveTeamRdrApi.Controllers
                   posn = 1,
                   slotdh = 0,
                   posnDh = 9,
-                  battingStats = new CBattingStats(),
+                  battingStats = new DTO_BattingStats(),
                   Playercategory = 'P',
-                  pitchingStats = new CPitchingStats()
+                  pitchingStats = new DTO_PitchingStats()
                },
-               new CPlayerInfo {
+               new DTO_PlayerInfo {
                   UseName = "Jones",
                   UseName2 = "C.Jones",
                   SkillStr = "-------4-",
@@ -91,7 +90,7 @@ namespace LiveTeamRdrApi.Controllers
                   posn = 0,
                   slotdh = 0,
                   posnDh = 0,
-                  battingStats = new CBattingStats(),
+                  battingStats = new DTO_BattingStats(),
                   Playercategory = 'B',
                   pitchingStats = null
                }

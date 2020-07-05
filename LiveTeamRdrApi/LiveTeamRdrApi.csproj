@@ -165,6 +165,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="BusinessLogic\CTeamBldr.cs" />
+    <Compile Include="BusinessLogic\DTO_TeamInfo.cs" />
     <Compile Include="BusinessLogic\Mapping.cs" />
     <Compile Include="BusinessLogic\ZBatting.cs" />
     <Compile Include="BusinessLogic\ZFieldingYear.cs" />

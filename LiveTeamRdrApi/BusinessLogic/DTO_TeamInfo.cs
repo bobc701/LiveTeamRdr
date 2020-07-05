@@ -5,23 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DataAccess {
+namespace LiveTeamRdrApi.BusinessLogic {
 
-   public class CTeamInfo {
-
+   public class DTO_TeamInfo {
       public string Team { get; set; }
       public int YearID { get; set; }
       public string LgID { get; set; }
       public string LineName { get; set; }
       public string City { get; set; }
       public string NickName { get; set; }
-      public CBattingStats leagueStats { get; set; } // Includes ipOuts
-      public List<CPlayerInfo> PlayerInfo { get; set; }
+      public DTO_BattingStats leagueStats { get; set; } // Includes ipOuts
+      public List<DTO_PlayerInfo> PlayerInfo { get; set; }
 
    }
 
 
-   public class CPlayerInfo {
+   public class DTO_PlayerInfo {
       public string UseName { get; set; }
       public string UseName2 { get; set; }
       public string SkillStr { get; set; }
@@ -30,12 +29,12 @@ namespace DataAccess {
       public int posn { get; set; }
       public int slotdh { get; set; }
       public int posnDh { get; set; }
-      public CBattingStats battingStats { get; set; }
-      public CPitchingStats pitchingStats { get; set; } //(if 2, null if 1)
+      public DTO_BattingStats battingStats { get; set; }
+      public DTO_PitchingStats pitchingStats { get; set; } //(if 2, null if 1)
    }
 
 
-   public class CBattingStats {
+   public class DTO_BattingStats {
       public int? pa { get; set; }
       public int? ab { get; set; }
       public int? h { get; set; }
@@ -53,7 +52,7 @@ namespace DataAccess {
       public int? ipOuts { get; set; } // For league stats
    }
 
-   public class CPitchingStats {
+   public class DTO_PitchingStats {
       public int? g { get; set; }
       public int? gs { get; set; }
       public int? w { get; set; }

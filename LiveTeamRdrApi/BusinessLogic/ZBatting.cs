@@ -7,8 +7,7 @@ using DataAccess;
 namespace LiveTeamRdrApi.BusinessLogic {
 
    public class ZBatting {
-      // --------------------------------------------------
-
+   // --------------------------------------------------
 
       public string playerID { get; set; }
       public string lgID { get; set; }
