@@ -20,7 +20,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
 
 
-      public DTO_TeamInfo ConstructTeam(string teamTag, int year) {
+      public DTO_TeamRoster ConstructTeam(string teamTag, int year) {
       // -----------------------------------------------------------
          var ctx = new DB_133455_mlbhistoryEntities1();
 
@@ -44,7 +44,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          ComputeDefense(dh: true);
          ComputeLineup(dh: true);
 
-         var team = new DTO_TeamInfo();
+         var team = new DTO_TeamRoster();
          WriteCDB(team);
 
          return team;
@@ -58,7 +58,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       private const int MAX_ROSTER = 25;
 
 
-      private void WriteCDB(DTO_TeamInfo team) {
+      private void WriteCDB(DTO_TeamRoster team) {
          // ------------------------------------------
          var listB = new List<string>();
          var listP = new List<string>();
@@ -127,6 +127,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
          team.City = zteam1.City;
          team.NickName = zteam1.NickName;
          team.LineName = zteam1.LineName;
+         team.UsesDhDefault = zteam1.UsesDH;
+         team.ComplPct = 100;
 
          // team.LeagueStats: new CBattingStats object, add scalars: pa, ab, etc
 
@@ -173,6 +175,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
                   b2 = bat1.B2,
                   b3 = bat1.B3,
                   hr = bat1.HR,
+                  rbi = bat1.RBI,
                   so = bat1.SO,
                   sh = bat1.SH,
                   sf = bat1.SF,

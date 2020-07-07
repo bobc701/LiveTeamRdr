@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace LiveTeamRdrApi.BusinessLogic {
 
-   public class DTO_TeamInfo {
+   public class DTO_TeamRoster {
+      public string DataVersion { get; set; } = "V3.0";
       public string Team { get; set; }
       public int YearID { get; set; }
       public string LgID { get; set; }
       public string LineName { get; set; }
       public string City { get; set; }
       public string NickName { get; set; }
+      public bool UsesDhDefault { get; set; }
+      public int ComplPct { get; set; }
       public DTO_BattingStats leagueStats { get; set; } // Includes ipOuts
       public List<DTO_PlayerInfo> PlayerInfo { get; set; }
 
@@ -41,6 +44,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public int? b2 { get; set; }
       public int? b3 { get; set; }
       public int? hr { get; set; }
+      public int? rbi { get; set; }
       public int? so { get; set; }
       public int? sh { get; set; }
       public int? sf { get; set; }

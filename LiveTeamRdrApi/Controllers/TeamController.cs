@@ -15,10 +15,10 @@ namespace LiveTeamRdrApi.Controllers
       // GET: api/Team/{teamTag}/{year:int}
       [Route("api/team/{teamTag}/{year:int}")]
       [HttpGet]
-      public DTO_TeamInfo GetTeam(string teamTag, int year) {
+      public DTO_TeamRoster GetTeam(string teamTag, int year) {
       // --------------------------------------------------
          var bldr = new CTeamBldr();
-         DTO_TeamInfo team1 = bldr.ConstructTeam(teamTag, year);
+         DTO_TeamRoster team1 = bldr.ConstructTeam(teamTag, year);
 
          return team1;
       }
@@ -31,7 +31,7 @@ namespace LiveTeamRdrApi.Controllers
       public List<ZBatting> GetTeam2(string teamTag, int year) {
       // --------------------------------------------------
          var bldr = new CTeamBldr();
-         DTO_TeamInfo team1 = bldr.ConstructTeam(teamTag, year);
+         DTO_TeamRoster team1 = bldr.ConstructTeam(teamTag, year);
 
          return bldr.zbatting1;
       }
@@ -60,10 +60,10 @@ namespace LiveTeamRdrApi.Controllers
 
       [Route("api/test/{teamTag}/{year:int}")]
       [HttpGet]
-      public DTO_TeamInfo GetTest(string teamTag, int year) {
+      public DTO_TeamRoster GetTest(string teamTag, int year) {
       // --------------------------------------------------
 
-         var team = new DTO_TeamInfo {
+         var team = new DTO_TeamRoster {
             Team = teamTag + year.ToString(),
             City = "New York",
             NickName = "Mets",
