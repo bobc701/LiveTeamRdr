@@ -24,7 +24,9 @@ namespace LiveTeamRdrApi.BusinessLogic {
       // -----------------------------------------------------------
          var ctx = new DB_133455_mlbhistoryEntities1();
 
-         zteam1 = ctx.ZTeams.Where(t => t.ZTeam1 == teamTag && t.yearID == year).First();
+         zteam1 = ctx.ZTeams.Where(t => t.ZTeam1 == teamTag && t.yearID == year).FirstOrDefault();
+         if (zteam1 == null) throw new Exception($"Error: Could not find team {teamTag} for year {year}");
+
          zbatting1 = ctx.Batting1_app(teamTag, year).ToZBatting(); 
          zpitching1 = ctx.Pitching1_app(teamTag, year).ToZPitching();
          zgamesByPosn1 = ctx.GamesByPosn1_app(teamTag, year).ToZGamesByPosn();
@@ -150,62 +152,18 @@ namespace LiveTeamRdrApi.BusinessLogic {
             ipOuts = zleagueStats1.IPouts
          };
 
-
-         // team.PlayerInfo: new List<CPlayerInfo>()
-
          team.PlayerInfo = new List<DTO_PlayerInfo>();
-         var listBoth = listB.Concat(listP);
-         foreach (string id in listBoth) {
-            var bat1 = zbatting1.First(b => b.playerID == id);
-            var pit1 = zpitching1.FirstOrDefault(p => p.PlayerID == id); // Will be null for non-pitcher
-
-            var player = new DTO_PlayerInfo() {
-               UseName = bat1.UseName,
-               UseName2 = bat1.UseName2,
-               SkillStr = bat1.SkillStr,
-               Playercategory = pit1 == null ? 'B' : 'P',
-               slot = bat1.slot,
-               posn = bat1.posn,
-               slotdh = bat1.slotDh,
-               posnDh = bat1.posnDh,
-               battingStats = new DTO_BattingStats {
-                  pa = bat1.PA,
-                  ab = bat1.AB,
-                  h = bat1.H,
-                  b2 = bat1.B2,
-                  b3 = bat1.B3,
-                  hr = bat1.HR,
-                  rbi = bat1.RBI,
-                  so = bat1.SO,
-                  sh = bat1.SH,
-                  sf = bat1.SF,
-                  bb = bat1.BB,
-                  ibb = bat1.IBB,
-                  hbp = bat1.HBP,
-                  sb = bat1.SB,
-                  cs = bat1.CS,
-                  ipOuts = null // Only for league stats
-               },
-               pitchingStats = pit1 == null ? null : new DTO_PitchingStats {
-                  g = pit1.G,
-                  gs = pit1.GS,
-                  w = pit1.W,
-                  l = pit1.L,
-                  bfp = pit1.BFP,
-                  ipOuts = pit1.IPouts,
-                  h = pit1.H,
-                  er = pit1.ER,
-                  hr = pit1.HR,
-                  so = pit1.SO,
-                  bb = pit1.BB,
-                  ibb = pit1.IBB,
-                  sv = pit1.SV
-               }
-
-            };
+         foreach (string id in listB) {
+            ZBatting bat1 = zbatting1.First(b => b.playerID == id);
+            var player = new DTO_PlayerInfo(bat1, pit1: null);
             team.PlayerInfo.Add(player);
          }
-
+         foreach (string id in listP) {
+            ZBatting bat1 = zbatting1.First(b => b.playerID == id);
+            ZPitching pit1 = zpitching1.First(p => p.PlayerID == id);
+            var player = new DTO_PlayerInfo(bat1, pit1);
+            team.PlayerInfo.Add(player);
+         }
       }
 
 

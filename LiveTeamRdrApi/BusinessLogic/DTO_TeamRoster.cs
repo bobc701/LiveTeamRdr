@@ -24,6 +24,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
 
    public class DTO_PlayerInfo {
+
       public string UseName { get; set; }
       public string UseName2 { get; set; }
       public string SkillStr { get; set; }
@@ -34,6 +35,61 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public int posnDh { get; set; }
       public DTO_BattingStats battingStats { get; set; }
       public DTO_PitchingStats pitchingStats { get; set; } //(if 2, null if 1)
+
+
+      public DTO_PlayerInfo() {
+      // -------------------------------------------------
+      // Class members must be assigned through properties.
+
+      }
+
+
+      public DTO_PlayerInfo(ZBatting bat1, ZPitching pit1) {
+         // ---------------------------------------------------------
+         UseName = bat1.UseName;
+         UseName2 = bat1.UseName2;
+         SkillStr = bat1.SkillStr;
+         Playercategory = pit1 == null ? 'B' : 'P';
+         slot = bat1.slot;
+         posn = bat1.posn;
+         slotdh = bat1.slotDh;
+         posnDh = bat1.posnDh;
+         battingStats = new DTO_BattingStats {
+            pa = bat1.PA,
+            ab = bat1.AB,
+            h = bat1.H,
+            b2 = bat1.B2,
+            b3 = bat1.B3,
+            hr = bat1.R,
+            rbi = bat1.RBI,
+            so = bat1.SO,
+            sh = bat1.SH,
+            sf = bat1.SF,
+            bb = bat1.BB,
+            ibb = bat1.IBB,
+            hbp = bat1.HBP,
+            sb = bat1.SB,
+            cs = bat1.CS,
+            ipOuts = null // Only for league stats
+         };
+         if (pit1 != null)
+            pitchingStats = new DTO_PitchingStats {
+               g = pit1.G,
+               gs = pit1.GS,
+               w = pit1.W,
+               l = pit1.L,
+               bfp = pit1.BFP,
+               ipOuts = pit1.IPouts,
+               h = pit1.H,
+               er = pit1.ER,
+               hr = pit1.HR,
+               so = pit1.SO,
+               bb = pit1.BB,
+               ibb = pit1.IBB,
+               sv = pit1.SV
+            };
+      }
+
    }
 
 

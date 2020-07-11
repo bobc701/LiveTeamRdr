@@ -16,11 +16,21 @@ namespace LiveTeamRdrApi.Controllers
       [Route("api/team/{teamTag}/{year:int}")]
       [HttpGet]
       public DTO_TeamRoster GetTeam(string teamTag, int year) {
-      // --------------------------------------------------
-         var bldr = new CTeamBldr();
-         DTO_TeamRoster team1 = bldr.ConstructTeam(teamTag, year);
+         // --------------------------------------------------
+         try {
+            var bldr = new CTeamBldr();
+            DTO_TeamRoster team1 = bldr.ConstructTeam(teamTag, year);
+            return team1;
+         }
+         catch (Exception ex) {
+            string msg = $"Unable to load team data for {teamTag} for year {year}\r\n{ex.Message}";
+            var response = new HttpResponseMessage(HttpStatusCode.NotFound) {
+               Content = new StringContent(msg, System.Text.Encoding.UTF8, "text/plain"),
+               StatusCode = HttpStatusCode.NotFound
+            };
+            throw new HttpResponseException(response);
+         }
 
-         return team1;
       }
 
 
@@ -70,7 +80,7 @@ namespace LiveTeamRdrApi.Controllers
             LineName = "NYM",
             leagueStats = new DTO_BattingStats(),
             PlayerInfo = new List<DTO_PlayerInfo> {
-               new DTO_PlayerInfo {
+               new DTO_PlayerInfo() {
                   UseName = "Seaver",
                   UseName2 = "T.Seaver",
                   SkillStr = "4--------",
