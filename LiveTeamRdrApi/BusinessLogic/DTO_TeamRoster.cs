@@ -60,7 +60,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
             h = bat1.H,
             b2 = bat1.B2,
             b3 = bat1.B3,
-            hr = bat1.R,
+            hr = bat1.HR,
             rbi = bat1.RBI,
             so = bat1.SO,
             sh = bat1.SH,

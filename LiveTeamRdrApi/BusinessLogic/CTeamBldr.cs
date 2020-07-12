@@ -67,10 +67,13 @@ namespace LiveTeamRdrApi.BusinessLogic {
          IEnumerable<ZBatting> listb;
          IEnumerable<ZPitching> listp;
 
-         void AddToList(List<string> list1, string playerId) {
+         void AddToList(char cat, string playerId) {
             // -----------------------------------------------------------
-            if (!list1.Contains(playerId)) {
-               list1.Add(playerId);
+            if (!listB.Contains(playerId) && !listP.Contains(playerId)) {
+               switch (cat) {
+                  case 'B': listB.Add(playerId); break;
+                  case 'P': listP.Add(playerId); break;
+               }
             }
          }
 
@@ -82,8 +85,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
          listb = zbatting1.Where(bat => bat.slot != 0 || bat.slotDh != 0);
          foreach (ZBatting bat in listb) {
-            if (bat.posn == 1 || bat.posnDh == 1) AddToList(listP, bat.playerID);
-            else AddToList(listB, bat.playerID);
+            if (bat.posn == 1 || bat.posnDh == 1) AddToList('P', bat.playerID);
+            else AddToList('B', bat.playerID);
          }
 
          // -- Pitchers (to ListP)
@@ -91,7 +94,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          listp = zpitching1.OrderByDescending(pit => pit.GS);
          foreach (ZPitching pit in listp) {
             if (listP.Count >= MAX_STARTERS) break;
-            AddToList(listP, pit.PlayerID);
+            AddToList('P', pit.PlayerID);
          }
 
          // -- Closers (to ListP)
@@ -99,7 +102,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          listp = zpitching1.OrderByDescending(pit => pit.SV);
          foreach (ZPitching pit in listp) {
             if (listP.Count >= MAX_STARTERS + MAX_CLOSERS) break;
-            AddToList(listP, pit.PlayerID);
+            AddToList('P', pit.PlayerID);
          }
 
          // -- Other pitchers (to ListP)
@@ -107,7 +110,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          listp = zpitching1.OrderByDescending(pit => pit.IPouts);
          foreach (ZPitching pit in listp) {
             if (listP.Count >= MAX_STARTERS + MAX_CLOSERS + MAX_OTHERS) break;
-            AddToList(listP, pit.PlayerID);
+            AddToList('P', pit.PlayerID);
          }
 
          // -- More batters... (to listB)
@@ -115,7 +118,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          listb = zbatting1.OrderByDescending(bat => bat.AB);
          foreach (ZBatting bat in listb) {
             if (listB.Count + listP.Count >= MAX_ROSTER) break;
-            AddToList(listB, bat.playerID);
+            AddToList('B', bat.playerID);
          }
 
 
@@ -131,6 +134,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          team.LineName = zteam1.LineName;
          team.UsesDhDefault = zteam1.UsesDH;
          team.ComplPct = 100;
+         team.LgID = zteam1.lgID;
 
          // team.LeagueStats: new CBattingStats object, add scalars: pa, ab, etc
 
@@ -455,7 +459,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
 
 
-         private void FillSkillStr() {
+      private void FillSkillStr() {
          // ------------------------------------------------------
          // TASK:
          // Build 's' using GBP, then post it to ZBatter, matching 
@@ -487,13 +491,14 @@ namespace LiveTeamRdrApi.BusinessLogic {
                   s[7] = '3';
                   s[8] = '3';
                }
+               bat.SkillStr = s.ToString();
             }
          }
 
       }
 
 
-      private void DupeUseNames() {
+            private void DupeUseNames() {
       // ------------------------------------------
       // TASK: Eliminate dupes in UseName.
 
