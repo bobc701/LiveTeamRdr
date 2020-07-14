@@ -19,6 +19,14 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public List<ZFieldingYear> zfieldingYear1 { get; set; }
 
 
+      public List<ZTeam> ConstructTeamList(int year) {
+         // -------------------------------------------------------------
+         var ctx = new DB_133455_mlbhistoryEntities1();
+
+         var res = ctx.ZTeams.Where(t => t.yearID == year).ToList();
+         return res;
+
+      }
 
       public DTO_TeamRoster ConstructTeam(string teamTag, int year) {
       // -----------------------------------------------------------

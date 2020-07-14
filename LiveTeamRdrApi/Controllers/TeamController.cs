@@ -34,6 +34,37 @@ namespace LiveTeamRdrApi.Controllers
       }
 
 
+      // GET: api/Team/{teamTag}/{year:int}
+      [Route("api/team-list/{year:int}")]
+      [HttpGet]
+      public List<CTeamRecord> GetTeamList(int year) {
+         // --------------------------------------------------
+         try {
+            var bldr = new CTeamBldr();
+            List<CTeamRecord> result = bldr.ConstructTeamList(year).Select(t => new CTeamRecord {
+               City = t.City,
+               LineName = t.LineName,
+               LgID = t.lgID,
+               NickName = t.NickName,
+               TeamTag = t.ZTeam1,
+               Year = t.yearID,
+               UsesDh = t.UsesDH
+            })
+            .OrderByDescending(t => t.LgID).ThenBy(t => t.City).ToList();
+            return result;
+         }
+         catch (Exception ex) {
+            string msg = $"Unable to retrieve list of teams year {year}\r\n{ex.Message}";
+            var response = new HttpResponseMessage(HttpStatusCode.NotFound) {
+               Content = new StringContent(msg, System.Text.Encoding.UTF8, "text/plain"),
+               StatusCode = HttpStatusCode.NotFound
+            };
+            throw new HttpResponseException(response);
+         }
+
+      }
+
+
       // Thisi s for testing.
       // Just returns zbatting1, so you can inspect it.
       [Route("api/test-batting/{teamTag}/{year:int}")]
@@ -118,3 +149,17 @@ namespace LiveTeamRdrApi.Controllers
 
     }
 }
+
+
+public struct CTeamRecord {
+   // ---------------------------------------------------
+   public string TeamTag { get; set; }
+   public int Year { get; set; }
+   public string LineName { get; set; }
+   public string City { get; set; }
+   public string NickName { get; set; }
+   public bool UsesDh { get; set; }
+   public string LgID { get; set; }
+
+}
+
