@@ -9,18 +9,18 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
       public string playerID { get; set; }
       public int g { get; set; }
-      public int? gs { get; set; }
-      public int? p { get; set; }
-      public int? c { get; set; }
-      public int? b1 { get; set; }
-      public int? b2 { get; set; }
-      public int? b3 { get; set; }
-      public int? ss { get; set; }
-      public int? lf { get; set; }
-      public int? cf { get; set; }
-      public int? rf { get; set; }
-      public int? of { get; set; }
-      public int? dh { get; set; }
+      public int gs { get; set; }
+      public int p { get; set; }
+      public int c { get; set; }
+      public int b1 { get; set; }
+      public int b2 { get; set; }
+      public int b3 { get; set; }
+      public int ss { get; set; }
+      public int lf { get; set; }
+      public int cf { get; set; }
+      public int rf { get; set; }
+      public int of { get; set; }
+      public int dh { get; set; }
 
       public string BBRefFielding { get; set; }
 

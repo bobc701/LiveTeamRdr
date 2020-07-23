@@ -7,26 +7,26 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
    public class ZPitching {
 
-      public string PlayerID;
-      public int? BFP;
-      public int? G;
-      public int? GS;
-      public int? IPouts; // x3
-      public int? H;
-      public int? HR;
-      public int? SO;
-      public int? BB;
-      public int? SV;
-      public int? W;
-      public int? L;
-      public int? R;
-      public int? ER;
+      public string playerID;
+      public int bfp;
+      public int g;
+      public int gs;
+      public int ipOuts; // x3
+      public int h;
+      public int hr;
+      public int so;
+      public int bb;
+      public int sv;
+      public int w;
+      public int l;
+      public int r;
+      public int er;
 
-      public int? IBB;
-      public int? HBP;
-      public double? ERA;
-      public int? WP;
-      public int? BK;
+      public int ibb;
+      public int hbp;
+      public double era;
+      public int wp;
+      public int bk;
 
       public double p_h;
       public double p_hr;

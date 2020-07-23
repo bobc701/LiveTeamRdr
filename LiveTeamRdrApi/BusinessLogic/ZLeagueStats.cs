@@ -9,22 +9,22 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
       public int yearID { get; set; }
       public string lgID { get; set; }
-      public Nullable<int> AB { get; set; }
-      public Nullable<int> H { get; set; }
-      public Nullable<int> B2 { get; set; }
-      public Nullable<int> B3 { get; set; }
-      public Nullable<int> HR { get; set; }
-      public Nullable<int> BB { get; set; }
-      public Nullable<int> IBB { get; set; }
-      public Nullable<int> SO { get; set; }
-      public Nullable<int> SB { get; set; }
-      public Nullable<int> CS { get; set; }
-      public Nullable<int> HBP { get; set; }
-      public Nullable<int> SH { get; set; }
-      public Nullable<int> SF { get; set; }
-      public Nullable<int> IPouts { get; set; }
+      public int ab { get; set; }
+      public int h { get; set; }
+      public int b2 { get; set; }
+      public int b3 { get; set; }
+      public int hr { get; set; }
+      public int bb { get; set; }
+      public int ibb { get; set; }
+      public int so { get; set; }
+      public int sb { get; set; }
+      public int cs { get; set; }
+      public int hbp { get; set; }
+      public int sh { get; set; }
+      public int sf { get; set; }
+      public int ipOuts { get; set; }
 
-      public int? PA { get => AB + BB + HBP + SH + SF; }
+      public int pa { get => ab + bb + hbp + sh + sf; }
 
    }
 

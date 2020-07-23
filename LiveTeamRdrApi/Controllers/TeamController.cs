@@ -35,13 +35,13 @@ namespace LiveTeamRdrApi.Controllers
 
 
       // GET: api/Team/{teamTag}/{year:int}
-      [Route("api/team-list/{year:int}")]
+      [Route("api/team-list/{year1:int}/{year2:int}")]
       [HttpGet]
-      public List<CTeamRecord> GetTeamList(int year) {
+      public List<CTeamRecord> GetTeamList(int year1, int year2) {
          // --------------------------------------------------
          try {
             var bldr = new CTeamBldr();
-            List<CTeamRecord> result = bldr.ConstructTeamList(year).Select(t => new CTeamRecord {
+            List<CTeamRecord> result = bldr.ConstructTeamList(year1, year2).Select(t => new CTeamRecord {
                City = t.City,
                LineName = t.LineName,
                LgID = t.lgID,
@@ -54,7 +54,7 @@ namespace LiveTeamRdrApi.Controllers
             return result;
          }
          catch (Exception ex) {
-            string msg = $"Unable to retrieve list of teams year {year}\r\n{ex.Message}";
+            string msg = $"Unable to retrieve list of teams for years {year1} to {year2}\r\n{ex.Message}";
             var response = new HttpResponseMessage(HttpStatusCode.NotFound) {
                Content = new StringContent(msg, System.Text.Encoding.UTF8, "text/plain"),
                StatusCode = HttpStatusCode.NotFound

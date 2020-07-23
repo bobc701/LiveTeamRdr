@@ -56,37 +56,37 @@ namespace LiveTeamRdrApi.BusinessLogic {
          posnDh = bat1.posnDh;
          battingStats = new DTO_BattingStats {
             pa = bat1.PA,
-            ab = bat1.AB,
-            h = bat1.H,
-            b2 = bat1.B2,
-            b3 = bat1.B3,
-            hr = bat1.HR,
-            rbi = bat1.RBI,
-            so = bat1.SO,
-            sh = bat1.SH,
-            sf = bat1.SF,
-            bb = bat1.BB,
-            ibb = bat1.IBB,
-            hbp = bat1.HBP,
-            sb = bat1.SB,
-            cs = bat1.CS,
-            ipOuts = null // Only for league stats
+            ab = bat1.ab,
+            h = bat1.h,
+            b2 = bat1.b2,
+            b3 = bat1.b3,
+            hr = bat1.hr,
+            rbi = bat1.rbi,
+            so = bat1.so,
+            sh = bat1.sh,
+            sf = bat1.sf,
+            bb = bat1.bb,
+            ibb = bat1.ibb,
+            hbp = bat1.hbp,
+            sb = bat1.sb,
+            cs = bat1.cs,
+            ipOuts = -1 // Only for league stats
          };
          if (pit1 != null)
             pitchingStats = new DTO_PitchingStats {
-               g = pit1.G,
-               gs = pit1.GS,
-               w = pit1.W,
-               l = pit1.L,
-               bfp = pit1.BFP,
-               ipOuts = pit1.IPouts,
-               h = pit1.H,
-               er = pit1.ER,
-               hr = pit1.HR,
-               so = pit1.SO,
-               bb = pit1.BB,
-               ibb = pit1.IBB,
-               sv = pit1.SV
+               g = pit1.g,
+               gs = pit1.gs,
+               w = pit1.w,
+               l = pit1.l,
+               bfp = pit1.bfp,
+               ipOuts = pit1.ipOuts,
+               h = pit1.h,
+               er = pit1.er,
+               hr = pit1.hr,
+               so = pit1.so,
+               bb = pit1.bb,
+               ibb = pit1.ibb,
+               sv = pit1.sv
             };
       }
 
@@ -94,38 +94,38 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
 
    public class DTO_BattingStats {
-      public int? pa { get; set; }
-      public int? ab { get; set; }
-      public int? h { get; set; }
-      public int? b2 { get; set; }
-      public int? b3 { get; set; }
-      public int? hr { get; set; }
-      public int? rbi { get; set; }
-      public int? so { get; set; }
-      public int? sh { get; set; }
-      public int? sf { get; set; }
-      public int? bb { get; set; }
-      public int? ibb { get; set; }
-      public int? hbp { get; set; }
-      public int? sb { get; set; }
-      public int? cs { get; set; }
-      public int? ipOuts { get; set; } // For league stats
+      public int pa { get; set; }
+      public int ab { get; set; }
+      public int h { get; set; }
+      public int b2 { get; set; }
+      public int b3 { get; set; }
+      public int hr { get; set; }
+      public int rbi { get; set; }
+      public int so { get; set; }
+      public int sh { get; set; }
+      public int sf { get; set; }
+      public int bb { get; set; }
+      public int ibb { get; set; }
+      public int hbp { get; set; }
+      public int sb { get; set; }
+      public int cs { get; set; }
+      public int ipOuts { get; set; } // For league stats
    }
 
    public class DTO_PitchingStats {
-      public int? g { get; set; }
-      public int? gs { get; set; }
-      public int? w { get; set; }
-      public int? l { get; set; }
-      public int? bfp { get; set; }
-      public int? ipOuts { get; set; }
-      public int? h { get; set; }
-      public int? er { get; set; }
-      public int? hr { get; set; }
-      public int? so { get; set; }
-      public int? bb { get; set; }
-      public int? ibb { get; set; }
-      public int? sv { get; set; }
+      public int g { get; set; }
+      public int gs { get; set; }
+      public int w { get; set; }
+      public int l { get; set; }
+      public int bfp { get; set; }
+      public int ipOuts { get; set; }
+      public int h { get; set; }
+      public int er { get; set; }
+      public int hr { get; set; }
+      public int so { get; set; }
+      public int bb { get; set; }
+      public int ibb { get; set; }
+      public int sv { get; set; }
    }
 
 }

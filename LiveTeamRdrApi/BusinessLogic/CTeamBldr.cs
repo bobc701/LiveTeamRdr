@@ -19,11 +19,11 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public List<ZFieldingYear> zfieldingYear1 { get; set; }
 
 
-      public List<ZTeam> ConstructTeamList(int year) {
+      public List<ZTeam> ConstructTeamList(int year1, int year2) {
          // -------------------------------------------------------------
          var ctx = new DB_133455_mlbhistoryEntities1();
 
-         var res = ctx.ZTeams.Where(t => t.yearID == year).ToList();
+         var res = ctx.ZTeams.Where(t => t.yearID >= year1 && t.yearID <= year2).ToList();
          return res;
 
       }
@@ -75,12 +75,12 @@ namespace LiveTeamRdrApi.BusinessLogic {
          IEnumerable<ZBatting> listb;
          IEnumerable<ZPitching> listp;
 
-         void AddToList(char cat, string playerId) {
+         void AddToList(char cat, string playerID) {
             // -----------------------------------------------------------
-            if (!listB.Contains(playerId) && !listP.Contains(playerId)) {
+            if (!listB.Contains(playerID) && !listP.Contains(playerID)) {
                switch (cat) {
-                  case 'B': listB.Add(playerId); break;
-                  case 'P': listP.Add(playerId); break;
+                  case 'B': listB.Add(playerID); break;
+                  case 'P': listP.Add(playerID); break;
                }
             }
          }
@@ -99,31 +99,31 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
          // -- Pitchers (to ListP)
 
-         listp = zpitching1.OrderByDescending(pit => pit.GS);
+         listp = zpitching1.OrderByDescending(pit => pit.gs);
          foreach (ZPitching pit in listp) {
             if (listP.Count >= MAX_STARTERS) break;
-            AddToList('P', pit.PlayerID);
+            AddToList('P', pit.playerID);
          }
 
          // -- Closers (to ListP)
 
-         listp = zpitching1.OrderByDescending(pit => pit.SV);
+         listp = zpitching1.OrderByDescending(pit => pit.sv);
          foreach (ZPitching pit in listp) {
             if (listP.Count >= MAX_STARTERS + MAX_CLOSERS) break;
-            AddToList('P', pit.PlayerID);
+            AddToList('P', pit.playerID);
          }
 
          // -- Other pitchers (to ListP)
 
-         listp = zpitching1.OrderByDescending(pit => pit.IPouts);
+         listp = zpitching1.OrderByDescending(pit => pit.ipOuts);
          foreach (ZPitching pit in listp) {
             if (listP.Count >= MAX_STARTERS + MAX_CLOSERS + MAX_OTHERS) break;
-            AddToList('P', pit.PlayerID);
+            AddToList('P', pit.playerID);
          }
 
          // -- More batters... (to listB)
 
-         listb = zbatting1.OrderByDescending(bat => bat.AB);
+         listb = zbatting1.OrderByDescending(bat => bat.ab);
          foreach (ZBatting bat in listb) {
             if (listB.Count + listP.Count >= MAX_ROSTER) break;
             AddToList('B', bat.playerID);
@@ -147,21 +147,22 @@ namespace LiveTeamRdrApi.BusinessLogic {
          // team.LeagueStats: new CBattingStats object, add scalars: pa, ab, etc
 
          team.leagueStats = new DTO_BattingStats {
-            pa = zleagueStats1.PA,
-            ab = zleagueStats1.AB,
-            h = zleagueStats1.H,
-            b2 = zleagueStats1.B2,
-            b3 = zleagueStats1.B3,
-            hr = zleagueStats1.HR,
-            so = zleagueStats1.SO,
-            sh = zleagueStats1.SH,
-            sf = zleagueStats1.SF,
-            bb = zleagueStats1.BB,
-            ibb = zleagueStats1.IBB,
-            hbp = zleagueStats1.HBP,
-            sb = zleagueStats1.SB,
-            cs = zleagueStats1.CS,
-            ipOuts = zleagueStats1.IPouts
+            pa = zleagueStats1.pa,
+            ab = zleagueStats1.ab,
+            h = zleagueStats1.h,
+            b2 = zleagueStats1.b2,
+            b3 = zleagueStats1.b3,
+            hr = zleagueStats1.hr,
+            so = zleagueStats1.so,
+            sh = zleagueStats1.sh,
+            sf = zleagueStats1.sf,
+            bb = zleagueStats1.bb,
+            ibb = zleagueStats1.ibb,
+            hbp = zleagueStats1.hbp,
+            sb = zleagueStats1.sb,
+            cs = zleagueStats1.cs,
+            ipOuts = zleagueStats1.ipOuts,
+            rbi = -1
          };
 
          team.PlayerInfo = new List<DTO_PlayerInfo>();
@@ -172,7 +173,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          }
          foreach (string id in listP) {
             ZBatting bat1 = zbatting1.First(b => b.playerID == id);
-            ZPitching pit1 = zpitching1.First(p => p.PlayerID == id);
+            ZPitching pit1 = zpitching1.First(p => p.playerID == id);
             var player = new DTO_PlayerInfo(bat1, pit1);
             team.PlayerInfo.Add(player);
          }
@@ -282,10 +283,10 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
          string GetMaxGS() {
             // ---------------------------------------------------
-            var list = zpitching1.Where(pit => !sIdList.Contains(pit.PlayerID));
-            int max = list.Max(pit1 => pit1.GS) ?? 0;
+            var list = zpitching1.Where(pit => !sIdList.Contains(pit.playerID));
+            int max = list.Max(pit1 => pit1.gs);
             if (max == 0) return "";
-            string id1 = list.First(pit => pit.GS == max).PlayerID;
+            string id1 = list.First(pit => pit.gs == max).playerID;
             return id1;
          }
 
