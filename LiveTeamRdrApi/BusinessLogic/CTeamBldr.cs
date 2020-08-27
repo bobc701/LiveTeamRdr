@@ -30,6 +30,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
       public DTO_TeamRoster ConstructTeam(string teamTag, int year) {
       // -----------------------------------------------------------
+      // In Access this was called 'BuildAllTeams'
+
          var ctx = new DB_133455_mlbhistoryEntities1();
 
          zteam1 = ctx.ZTeams.Where(t => t.ZTeam1 == teamTag && t.yearID == year).FirstOrDefault();
