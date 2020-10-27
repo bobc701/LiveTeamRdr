@@ -143,7 +143,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          team.NickName = zteam1.NickName;
          team.LineName = zteam1.LineName;
          team.UsesDhDefault = zteam1.UsesDH;
-         team.ComplPct = 100;
+         team.ComplPct = team.YearID switch {2020 => 37, _ => 100 }; //#2010.01 
          team.LgID = zteam1.lgID;
 
          // team.LeagueStats: new CBattingStats object, add scalars: pa, ab, etc
