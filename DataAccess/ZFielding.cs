@@ -29,5 +29,6 @@ namespace DataAccess
         public string Source { get; set; }
         public Nullable<System.DateTime> debut { get; set; }
         public Nullable<System.DateTime> finalGame { get; set; }
+        public string lahmanID { get; set; }
     }
 }

@@ -12,16 +12,14 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Batting
+    public partial class LeagueStat
     {
-        public string playerID { get; set; }
         public int yearID { get; set; }
-        public int stint { get; set; }
-        public string teamID { get; set; }
         public string lgID { get; set; }
-        public int G { get; set; }
+        public Nullable<int> G { get; set; }
+        public Nullable<int> PA { get; set; }
         public int AB { get; set; }
-        public int R { get; set; }
+        public Nullable<int> R { get; set; }
         public int H { get; set; }
         public int C2B { get; set; }
         public int C3B { get; set; }
@@ -36,8 +34,6 @@ namespace DataAccess
         public Nullable<int> SH { get; set; }
         public Nullable<int> SF { get; set; }
         public Nullable<int> GIDP { get; set; }
-        public string lahmanID { get; set; }
-        public Nullable<int> PA { get; set; }
-        public string PosSummary { get; set; }
+        public Nullable<int> IPouts { get; set; }
     }
 }

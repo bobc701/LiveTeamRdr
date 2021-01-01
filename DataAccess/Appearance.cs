@@ -35,5 +35,6 @@ namespace DataAccess
         public Nullable<int> G_dh { get; set; }
         public Nullable<int> G_ph { get; set; }
         public Nullable<int> G_pr { get; set; }
+        public string lahmanID { get; set; }
     }
 }

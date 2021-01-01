@@ -72,6 +72,9 @@
     <Compile Include="GamesByPosn1_app_Result.cs">
       <DependentUpon>MlbHistoryModel1.tt</DependentUpon>
     </Compile>
+    <Compile Include="LeagueStat.cs">
+      <DependentUpon>MlbHistoryModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="LeagueStats1_Result.cs">
       <DependentUpon>MlbHistoryModel1.tt</DependentUpon>
     </Compile>

@@ -36,6 +36,7 @@ namespace DataAccess
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<ZFielding> ZFieldings { get; set; }
         public virtual DbSet<FieldingYear> FieldingYears { get; set; }
+        public virtual DbSet<LeagueStat> LeagueStats { get; set; }
     
         public virtual ObjectResult<Batting1_app_Result> Batting1_app(string team, Nullable<int> year)
         {

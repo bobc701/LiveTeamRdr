@@ -10,6 +10,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
    public class CTeamBldr {
 
+      private DB_133455_mlbhistoryEntities1 ctx;
+
       public ZTeam zteam1 { get; set; }
       public List<ZBatting> zbatting1 { get; set; }
       public List<ZGamesByPosn> zgamesByPosn1 { get; set; }
@@ -21,12 +23,13 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
       public List<ZTeam> ConstructTeamList(int year1, int year2) {
          // -------------------------------------------------------------
-         var ctx = new DB_133455_mlbhistoryEntities1();
-
+         ctx = new DB_133455_mlbhistoryEntities1();
+         
          var res = ctx.ZTeams.Where(t => t.yearID >= year1 && t.yearID <= year2).ToList();
          return res;
 
       }
+
 
       public DTO_TeamRoster ConstructTeam(string teamTag, int year) {
       // -----------------------------------------------------------
@@ -42,7 +45,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          zgamesByPosn1 = ctx.GamesByPosn1_app(teamTag, year).ToZGamesByPosn();
          zfielding1 = ctx.ZFieldings.ToList();
          zfieldingYear1 = ctx.FieldingYear1_app(teamTag, year).ToZFieldingYear();
-         zleagueStats1 = ctx.LeagueStats1(year, zteam1.lgID).First().ToZLeagueStats(); 
+         //zleagueStats1 = ctx.LeagueStats1(year, zteam1.lgID).First().ToZLeagueStats(); //Remove it
 
          DupeUseNames();
          DupeUseNames2();
@@ -146,37 +149,37 @@ namespace LiveTeamRdrApi.BusinessLogic {
          team.ComplPct = team.YearID switch {2020 => 37, _ => 100 }; //#2010.01 
          team.LgID = zteam1.lgID;
 
-         // team.LeagueStats: new CBattingStats object, add scalars: pa, ab, etc
-
-         team.leagueStats = new DTO_BattingStats {
-            pa = zleagueStats1.pa,
-            ab = zleagueStats1.ab,
-            h = zleagueStats1.h,
-            b2 = zleagueStats1.b2,
-            b3 = zleagueStats1.b3,
-            hr = zleagueStats1.hr,
-            so = zleagueStats1.so,
-            sh = zleagueStats1.sh,
-            sf = zleagueStats1.sf,
-            bb = zleagueStats1.bb,
-            ibb = zleagueStats1.ibb,
-            hbp = zleagueStats1.hbp,
-            sb = zleagueStats1.sb,
-            cs = zleagueStats1.cs,
-            ipOuts = zleagueStats1.ipOuts,
-            rbi = -1
-         };
+         //team.leagueStats = new DTO_BattingStats {
+         //   pa = zleagueStats1.pa,
+         //   ab = zleagueStats1.ab,
+         //   h = zleagueStats1.h,
+         //   b2 = zleagueStats1.b2,
+         //   b3 = zleagueStats1.b3,
+         //   hr = zleagueStats1.hr,
+         //   so = zleagueStats1.so,
+         //   sh = zleagueStats1.sh,
+         //   sf = zleagueStats1.sf,
+         //   bb = zleagueStats1.bb,
+         //   ibb = zleagueStats1.ibb,
+         //   hbp = zleagueStats1.hbp,
+         //   sb = zleagueStats1.sb,
+         //   cs = zleagueStats1.cs,
+         //   ipOuts = zleagueStats1.ipOuts,
+         //   rbi = -1
+         //};
 
          team.PlayerInfo = new List<DTO_PlayerInfo>();
          foreach (string id in listB) {
             ZBatting bat1 = zbatting1.First(b => b.playerID == id);
-            var player = new DTO_PlayerInfo(bat1, pit1: null);
+            LeagueStat lg1 = ctx.LeagueStats.First(x => x.lgID == bat1.lgID && x.yearID == bat1.yearID);
+            var player = new DTO_PlayerInfo(bat1, pit1: null, lg1);
             team.PlayerInfo.Add(player);
          }
          foreach (string id in listP) {
             ZBatting bat1 = zbatting1.First(b => b.playerID == id);
             ZPitching pit1 = zpitching1.First(p => p.playerID == id);
-            var player = new DTO_PlayerInfo(bat1, pit1);
+            LeagueStat lg1 = ctx.LeagueStats.First(x => x.lgID == bat1.lgID && x.yearID == bat1.yearID);
+            var player = new DTO_PlayerInfo(bat1, pit1, lg1);
             team.PlayerInfo.Add(player);
          }
       }

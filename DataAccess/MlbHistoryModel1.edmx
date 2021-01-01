@@ -13,8 +13,9 @@
           </Key>
           <Property Name="yearID" Type="int" Nullable="false" />
           <Property Name="teamID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="lgID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="playerID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lgID" Type="nvarchar" MaxLength="50" />
+          <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="lahmanID" Type="nvarchar" MaxLength="10" />
           <Property Name="G_all" Type="int" Nullable="false" />
           <Property Name="GS" Type="int" />
           <Property Name="G_batting" Type="int" />
@@ -38,13 +39,16 @@
             <PropertyRef Name="playerID" />
             <PropertyRef Name="yearID" />
             <PropertyRef Name="stint" />
+            <PropertyRef Name="teamID" />
           </Key>
           <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="yearID" Type="int" Nullable="false" />
           <Property Name="stint" Type="int" Nullable="false" />
           <Property Name="teamID" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="lahmanID" Type="nvarchar" MaxLength="10" />
           <Property Name="lgID" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="G" Type="int" Nullable="false" />
+          <Property Name="PA" Type="int" />
           <Property Name="AB" Type="int" Nullable="false" />
           <Property Name="R" Type="int" Nullable="false" />
           <Property Name="H" Type="int" Nullable="false" />
@@ -61,15 +65,17 @@
           <Property Name="SH" Type="int" />
           <Property Name="SF" Type="int" />
           <Property Name="GIDP" Type="int" />
+          <Property Name="PosSummary" Type="nvarchar" MaxLength="16" />
         </EntityType>
         <EntityType Name="FieldingYear">
           <Key>
-            <PropertyRef Name="PlayerID" />
+            <PropertyRef Name="playerID" />
             <PropertyRef Name="Year" />
             <PropertyRef Name="Team" />
             <PropertyRef Name="Posn" />
           </Key>
-          <Property Name="PlayerID" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="lahmanID" Type="nvarchar" MaxLength="9" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="Team" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="Posn" Type="smallint" Nullable="false" />
@@ -86,13 +92,43 @@
           <Property Name="RtotYr" Type="smallint" />
           <Property Name="Skill" Type="smallint" />
         </EntityType>
+        <EntityType Name="LeagueStats">
+          <Key>
+            <PropertyRef Name="yearID" />
+            <PropertyRef Name="lgID" />
+          </Key>
+          <Property Name="yearID" Type="int" Nullable="false" />
+          <Property Name="lgID" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="G" Type="int" />
+          <Property Name="PA" Type="int" />
+          <Property Name="AB" Type="int" Nullable="false" />
+          <Property Name="R" Type="int" />
+          <Property Name="H" Type="int" Nullable="false" />
+          <Property Name="2B" Type="int" Nullable="false" />
+          <Property Name="3B" Type="int" Nullable="false" />
+          <Property Name="HR" Type="int" Nullable="false" />
+          <Property Name="RBI" Type="int" />
+          <Property Name="SB" Type="int" />
+          <Property Name="CS" Type="int" />
+          <Property Name="BB" Type="int" />
+          <Property Name="SO" Type="int" />
+          <Property Name="IBB" Type="int" />
+          <Property Name="HBP" Type="int" />
+          <Property Name="SH" Type="int" />
+          <Property Name="SF" Type="int" />
+          <Property Name="GIDP" Type="int" />
+          <Property Name="IPouts" Type="int" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Master">
           <Key>
+            <PropertyRef Name="ZPlayerId" />
             <PropertyRef Name="playerID" />
           </Key>
           <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="lahmanID" Type="nvarchar" MaxLength="10" />
+          <Property Name="ZPlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="birthYear" Type="int" />
           <Property Name="birthMonth" Type="int" />
           <Property Name="birthDay" Type="int" />
@@ -122,12 +158,14 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Master' does not have a p
             <PropertyRef Name="playerID" />
             <PropertyRef Name="yearID" />
             <PropertyRef Name="stint" />
+            <PropertyRef Name="teamID" />
           </Key>
           <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="yearID" Type="int" Nullable="false" />
           <Property Name="stint" Type="int" Nullable="false" />
           <Property Name="teamID" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="lgID" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="lahmanID" Type="nvarchar" MaxLength="10" />
           <Property Name="W" Type="int" Nullable="false" />
           <Property Name="L" Type="int" Nullable="false" />
           <Property Name="G" Type="int" Nullable="false" />
@@ -208,6 +246,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
             <PropertyRef Name="playerID" />
           </Key>
           <Property Name="playerID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="lahmanID" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="nameFirst" Type="nvarchar" MaxLength="50" />
           <Property Name="nameLast" Type="nvarchar" MaxLength="50" />
           <Property Name="p1" Type="smallint" />
@@ -261,6 +300,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySet Name="Appearances" EntityType="Self.Appearances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Batting" EntityType="Self.Batting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FieldingYear" EntityType="Self.FieldingYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeagueStats" EntityType="Self.LeagueStats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pitching" EntityType="Self.Pitching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UniqueTeams" EntityType="Self.UniqueTeams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZFielding" EntityType="Self.ZFielding" Schema="dbo" store:Type="Tables" />
@@ -268,6 +308,8 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySet Name="Master" EntityType="Self.Master" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Master].[playerID] AS [playerID], 
+    [Master].[lahmanID] AS [lahmanID], 
+    [Master].[ZPlayerId] AS [ZPlayerId], 
     [Master].[birthYear] AS [birthYear], 
     [Master].[birthMonth] AS [birthMonth], 
     [Master].[birthDay] AS [birthDay], 
@@ -329,8 +371,8 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           </Key>
           <Property Name="yearID" Type="Int32" Nullable="false" />
           <Property Name="teamID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="lgID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="playerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lgID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="playerID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="G_all" Type="Int32" Nullable="false" />
           <Property Name="GS" Type="Int32" />
           <Property Name="G_batting" Type="Int32" />
@@ -348,6 +390,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <Property Name="G_dh" Type="Int32" />
           <Property Name="G_ph" Type="Int32" />
           <Property Name="G_pr" Type="Int32" />
+          <Property Name="lahmanID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Batting">
           <Key>
@@ -377,6 +420,9 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <Property Name="SH" Type="Int32" />
           <Property Name="SF" Type="Int32" />
           <Property Name="GIDP" Type="Int32" />
+          <Property Name="lahmanID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PA" Type="Int32" />
+          <Property Name="PosSummary" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Pitching">
           <Key>
@@ -414,6 +460,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <Property Name="SH" Type="Int32" />
           <Property Name="SF" Type="Int32" />
           <Property Name="GIDP" Type="Int32" />
+          <Property Name="lahmanID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UniqueTeam">
           <Key>
@@ -445,6 +492,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
         <EntityType Name="Master">
           <Key>
             <PropertyRef Name="playerID" />
+            <PropertyRef Name="ZPlayerId" />
           </Key>
           <Property Name="playerID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="birthYear" Type="Int32" />
@@ -470,6 +518,8 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <Property Name="finalGame" Type="DateTime" Precision="3" />
           <Property Name="retroID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="bbrefID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="lahmanID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ZPlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -535,6 +585,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
             <Parameter Name="team" Mode="In" Type="String" />
             <Parameter Name="BldYear" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="LeagueStats" EntityType="DB_133455_mlbhistoryModel.LeagueStat" />
         </EntityContainer>
         <ComplexType Name="Batting1_app_Result">
           <Property Type="String" Name="playerID" Nullable="false" MaxLength="10" />
@@ -629,6 +680,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <Property Name="Source" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="debut" Type="DateTime" Precision="3" />
           <Property Name="finalGame" Type="DateTime" Precision="3" />
+          <Property Name="lahmanID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FieldingYear">
           <Key>
@@ -636,6 +688,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
             <PropertyRef Name="Year" />
             <PropertyRef Name="Team" />
             <PropertyRef Name="Posn" />
+            <PropertyRef Name="playerID" />
           </Key>
           <Property Name="PlayerID" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="Year" Type="Int32" Nullable="false" />
@@ -653,6 +706,8 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <Property Name="Rtot" Type="Int16" />
           <Property Name="RtotYr" Type="Int16" />
           <Property Name="Skill" Type="Int16" />
+          <Property Name="playerID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="lahmanID" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="FieldingYear1_app_Result">
           <Property Type="String" Name="playerID" Nullable="false" MaxLength="9" />
@@ -686,6 +741,33 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <Property Type="Int32" Name="G_of" Nullable="true" />
           <Property Type="Int32" Name="G_dh" Nullable="true" />
         </ComplexType>
+        <EntityType Name="LeagueStat">
+          <Key>
+            <PropertyRef Name="yearID" />
+            <PropertyRef Name="lgID" />
+          </Key>
+          <Property Name="yearID" Type="Int32" Nullable="false" />
+          <Property Name="lgID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="G" Type="Int32" />
+          <Property Name="PA" Type="Int32" />
+          <Property Name="AB" Type="Int32" Nullable="false" />
+          <Property Name="R" Type="Int32" />
+          <Property Name="H" Type="Int32" Nullable="false" />
+          <Property Name="C2B" Type="Int32" Nullable="false" />
+          <Property Name="C3B" Type="Int32" Nullable="false" />
+          <Property Name="HR" Type="Int32" Nullable="false" />
+          <Property Name="RBI" Type="Int32" />
+          <Property Name="SB" Type="Int32" />
+          <Property Name="CS" Type="Int32" />
+          <Property Name="BB" Type="Int32" />
+          <Property Name="SO" Type="Int32" />
+          <Property Name="IBB" Type="Int32" />
+          <Property Name="HBP" Type="Int32" />
+          <Property Name="SH" Type="Int32" />
+          <Property Name="SF" Type="Int32" />
+          <Property Name="GIDP" Type="Int32" />
+          <Property Name="IPouts" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -695,6 +777,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySetMapping Name="Appearances">
             <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Appearance">
               <MappingFragment StoreEntitySet="Appearances">
+                <ScalarProperty Name="lahmanID" ColumnName="lahmanID" />
                 <ScalarProperty Name="yearID" ColumnName="yearID" />
                 <ScalarProperty Name="teamID" ColumnName="teamID" />
                 <ScalarProperty Name="lgID" ColumnName="lgID" />
@@ -722,6 +805,9 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySetMapping Name="Battings">
             <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Batting">
               <MappingFragment StoreEntitySet="Batting">
+                <ScalarProperty Name="PosSummary" ColumnName="PosSummary" />
+                <ScalarProperty Name="PA" ColumnName="PA" />
+                <ScalarProperty Name="lahmanID" ColumnName="lahmanID" />
                 <ScalarProperty Name="playerID" ColumnName="playerID" />
                 <ScalarProperty Name="yearID" ColumnName="yearID" />
                 <ScalarProperty Name="stint" ColumnName="stint" />
@@ -750,6 +836,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySetMapping Name="Pitchings">
             <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Pitching">
               <MappingFragment StoreEntitySet="Pitching">
+                <ScalarProperty Name="lahmanID" ColumnName="lahmanID" />
                 <ScalarProperty Name="playerID" ColumnName="playerID" />
                 <ScalarProperty Name="yearID" ColumnName="yearID" />
                 <ScalarProperty Name="stint" ColumnName="stint" />
@@ -814,6 +901,8 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySetMapping Name="Masters">
             <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.Master">
               <MappingFragment StoreEntitySet="Master">
+                <ScalarProperty Name="ZPlayerId" ColumnName="ZPlayerId" />
+                <ScalarProperty Name="lahmanID" ColumnName="lahmanID" />
                 <ScalarProperty Name="playerID" ColumnName="playerID" />
                 <ScalarProperty Name="birthYear" ColumnName="birthYear" />
                 <ScalarProperty Name="birthMonth" ColumnName="birthMonth" />
@@ -955,6 +1044,7 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySetMapping Name="ZFieldings">
             <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.ZFielding">
               <MappingFragment StoreEntitySet="ZFielding">
+                <ScalarProperty Name="lahmanID" ColumnName="lahmanID" />
                 <ScalarProperty Name="finalGame" ColumnName="finalGame" />
                 <ScalarProperty Name="debut" ColumnName="debut" />
                 <ScalarProperty Name="Source" ColumnName="Source" />
@@ -976,6 +1066,8 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
           <EntitySetMapping Name="FieldingYears">
             <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.FieldingYear">
               <MappingFragment StoreEntitySet="FieldingYear">
+                <ScalarProperty Name="lahmanID" ColumnName="lahmanID" />
+                <ScalarProperty Name="playerID" ColumnName="playerID" />
                 <ScalarProperty Name="Skill" ColumnName="Skill" />
                 <ScalarProperty Name="RtotYr" ColumnName="RtotYr" />
                 <ScalarProperty Name="Rtot" ColumnName="Rtot" />
@@ -991,7 +1083,6 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
                 <ScalarProperty Name="Posn" ColumnName="Posn" />
                 <ScalarProperty Name="Team" ColumnName="Team" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1035,6 +1126,33 @@ warning 6002: The table/view 'DB_133455_mlbhistory.dbo.Teams' does not have a pr
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="LeagueStats">
+            <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.LeagueStat">
+              <MappingFragment StoreEntitySet="LeagueStats">
+                <ScalarProperty Name="IPouts" ColumnName="IPouts" />
+                <ScalarProperty Name="GIDP" ColumnName="GIDP" />
+                <ScalarProperty Name="SF" ColumnName="SF" />
+                <ScalarProperty Name="SH" ColumnName="SH" />
+                <ScalarProperty Name="HBP" ColumnName="HBP" />
+                <ScalarProperty Name="IBB" ColumnName="IBB" />
+                <ScalarProperty Name="SO" ColumnName="SO" />
+                <ScalarProperty Name="BB" ColumnName="BB" />
+                <ScalarProperty Name="CS" ColumnName="CS" />
+                <ScalarProperty Name="SB" ColumnName="SB" />
+                <ScalarProperty Name="RBI" ColumnName="RBI" />
+                <ScalarProperty Name="HR" ColumnName="HR" />
+                <ScalarProperty Name="C3B" ColumnName="3B" />
+                <ScalarProperty Name="C2B" ColumnName="2B" />
+                <ScalarProperty Name="H" ColumnName="H" />
+                <ScalarProperty Name="R" ColumnName="R" />
+                <ScalarProperty Name="AB" ColumnName="AB" />
+                <ScalarProperty Name="PA" ColumnName="PA" />
+                <ScalarProperty Name="G" ColumnName="G" />
+                <ScalarProperty Name="lgID" ColumnName="lgID" />
+                <ScalarProperty Name="yearID" ColumnName="yearID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

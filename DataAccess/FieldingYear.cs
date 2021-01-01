@@ -30,5 +30,7 @@ namespace DataAccess
         public Nullable<short> Rtot { get; set; }
         public Nullable<short> RtotYr { get; set; }
         public Nullable<short> Skill { get; set; }
+        public string playerID { get; set; }
+        public string lahmanID { get; set; }
     }
 }

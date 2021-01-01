@@ -35,6 +35,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       public int posnDh { get; set; }
       public DTO_BattingStats battingStats { get; set; }
       public DTO_PitchingStats pitchingStats { get; set; } //(if 2, null if 1)
+      public DTO_BattingStats leagueStats { get; set; }    //new for b12, custom teams
 
 
       public DTO_PlayerInfo() {
@@ -44,7 +45,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       }
 
 
-      public DTO_PlayerInfo(ZBatting bat1, ZPitching pit1) {
+      public DTO_PlayerInfo(ZBatting bat1, ZPitching pit1, DataAccess.LeagueStat lg1) {
          // ---------------------------------------------------------
          UseName = bat1.UseName;
          UseName2 = bat1.UseName2;
@@ -88,6 +89,25 @@ namespace LiveTeamRdrApi.BusinessLogic {
                ibb = pit1.ibb,
                sv = pit1.sv
             };
+         leagueStats = new DTO_BattingStats {
+            //pa = lg1.PA,
+            ab = lg1.AB,
+            h = lg1.H,
+            b2 = lg1.C2B,
+            b3 = lg1.C3B,
+            hr = lg1.HR,
+            //rbi = lg1.rbi,
+            so = (int)lg1.SO,
+            sh = (int)lg1.SH,
+            sf = (int)lg1.SF,
+            bb = (int)lg1.BB,
+            ibb = (int)lg1.IBB,
+            hbp = (int)lg1.HBP,
+            sb = (int)lg1.SB,
+            cs = (int)lg1.CS,
+            ipOuts = (int)lg1.IPouts
+
+         };
       }
 
    }

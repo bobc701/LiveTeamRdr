@@ -38,5 +38,7 @@ namespace DataAccess
         public Nullable<System.DateTime> finalGame { get; set; }
         public string retroID { get; set; }
         public string bbrefID { get; set; }
+        public string lahmanID { get; set; }
+        public int ZPlayerId { get; set; }
     }
 }
