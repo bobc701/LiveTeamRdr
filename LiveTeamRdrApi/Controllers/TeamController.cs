@@ -83,7 +83,7 @@ namespace LiveTeamRdrApi.Controllers
       public List<Batting1_app_Result> GetFullTeam(string teamTag, int year) {
          // --------------------------------------------------
 
-         var ctx = new DataAccess.DB_133455_mlbhistoryEntities1();
+         var ctx = new DataAccess.DB_133455_mlbhistoryEntities2();
          List<Batting1_app_Result> list1;
          list1 = ctx.Batting1_app(teamTag, year).ToList();
 

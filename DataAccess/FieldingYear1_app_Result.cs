@@ -14,7 +14,7 @@ namespace DataAccess
     public partial class FieldingYear1_app_Result
     {
         public string playerID { get; set; }
-        public int year { get; set; }
+        public int Year { get; set; }
         public string ZTeam { get; set; }
         public short Posn { get; set; }
         public Nullable<double> inn { get; set; }

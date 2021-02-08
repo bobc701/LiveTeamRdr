@@ -17,7 +17,7 @@ namespace DataAccess
         public string ZTeam { get; set; }
         public int yearID { get; set; }
         public int G_all { get; set; }
-        public Nullable<int> GS { get; set; }
+        public int GS { get; set; }
         public Nullable<int> G_p { get; set; }
         public Nullable<int> G_c { get; set; }
         public Nullable<int> G_1b { get; set; }
@@ -28,6 +28,6 @@ namespace DataAccess
         public Nullable<int> G_cf { get; set; }
         public Nullable<int> G_rf { get; set; }
         public Nullable<int> G_of { get; set; }
-        public Nullable<int> G_dh { get; set; }
+        public int G_dh { get; set; }
     }
 }

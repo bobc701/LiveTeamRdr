@@ -15,6 +15,7 @@ namespace DataAccess
     public partial class ZFielding
     {
         public string playerID { get; set; }
+        public string lahmanID { get; set; }
         public string nameFirst { get; set; }
         public string nameLast { get; set; }
         public Nullable<short> p1 { get; set; }
@@ -29,6 +30,5 @@ namespace DataAccess
         public string Source { get; set; }
         public Nullable<System.DateTime> debut { get; set; }
         public Nullable<System.DateTime> finalGame { get; set; }
-        public string lahmanID { get; set; }
     }
 }

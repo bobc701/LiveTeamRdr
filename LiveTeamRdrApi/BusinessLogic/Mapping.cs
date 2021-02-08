@@ -164,7 +164,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
             statsOut = new ZFieldingYear() {
 
                playerID = statsIn.playerID,
-               year = statsIn.year,
+               year = statsIn.Year,
                ZTeam = statsIn.ZTeam,
                Posn = statsIn.Posn,
                inn = statsIn.inn,
@@ -185,32 +185,32 @@ namespace LiveTeamRdrApi.BusinessLogic {
       }
 
 
-      public static ZLeagueStats ToZLeagueStats(this LeagueStats1_Result statsIn) {
-         // ---------------------------------------------------------------------
-         var result = new ZLeagueStats();
-         ZLeagueStats statsOut;
-         statsOut = new ZLeagueStats() {
+      //public static ZLeagueStats ToZLeagueStats(this LeagueStats1_Result statsIn) {
+      //   // ---------------------------------------------------------------------
+      //   var result = new ZLeagueStats();
+      //   ZLeagueStats statsOut;
+      //   statsOut = new ZLeagueStats() {
 
-            yearID = statsIn.yearID,
-            lgID = statsIn.lgID,
-            ab = (int)statsIn.AB,
-            h = (int)statsIn.H,
-            b2 = (int)statsIn.C2B,
-            b3 = (int)statsIn.C3B,
-            hr = (int)statsIn.HR,
-            bb = (int)statsIn.BB,
-            ibb = (int)statsIn.IBB,
-            so = (int)statsIn.SO,
-            sb = (int)statsIn.SB,
-            cs = (int)statsIn.CS,
-            hbp = (int)statsIn.HBP,
-            sh = (int)statsIn.SH,
-            sf = (int)statsIn.SF,
-            ipOuts = (int)statsIn.IPouts
-         };
-         return statsOut;
+      //      yearID = statsIn.yearID,
+      //      lgID = statsIn.lgID,
+      //      ab = (int)statsIn.AB,
+      //      h = (int)statsIn.H,
+      //      b2 = (int)statsIn.C2B,
+      //      b3 = (int)statsIn.C3B,
+      //      hr = (int)statsIn.HR,
+      //      bb = (int)statsIn.BB,
+      //      ibb = (int)statsIn.IBB,
+      //      so = (int)statsIn.SO,
+      //      sb = (int)statsIn.SB,
+      //      cs = (int)statsIn.CS,
+      //      hbp = (int)statsIn.HBP,
+      //      sh = (int)statsIn.SH,
+      //      sf = (int)statsIn.SF,
+      //      ipOuts = (int)statsIn.IPouts
+      //   };
+      //   return statsOut;
 
-      }
+      //}
 
    }
 

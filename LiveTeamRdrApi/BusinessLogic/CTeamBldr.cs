@@ -10,7 +10,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
    public class CTeamBldr {
 
-      private DB_133455_mlbhistoryEntities1 ctx;
+      private DB_133455_mlbhistoryEntities2 ctx;
 
       public ZTeam zteam1 { get; set; }
       public List<ZBatting> zbatting1 { get; set; }
@@ -23,7 +23,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
       public List<ZTeam> ConstructTeamList(int year1, int year2) {
          // -------------------------------------------------------------
-         ctx = new DB_133455_mlbhistoryEntities1();
+         ctx = new DB_133455_mlbhistoryEntities2();
          
          var res = ctx.ZTeams.Where(t => t.yearID >= year1 && t.yearID <= year2).ToList();
          return res;
@@ -35,7 +35,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
       // -----------------------------------------------------------
       // In Access this was called 'BuildAllTeams'
 
-         var ctx = new DB_133455_mlbhistoryEntities1();
+         ctx = new DB_133455_mlbhistoryEntities2();
 
          zteam1 = ctx.ZTeams.Where(t => t.ZTeam1 == teamTag && t.yearID == year).FirstOrDefault();
          if (zteam1 == null) throw new Exception($"Error: Could not find team {teamTag} for year {year}");

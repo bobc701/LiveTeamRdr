@@ -56,6 +56,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
          slotdh = bat1.slotDh;
          posnDh = bat1.posnDh;
          battingStats = new DTO_BattingStats {
+            ZTeam = bat1.ZTeam,    //Need this for custom teams as it can vary
+            yearID = bat1.yearID,  //Need this for custom teams as it can vary
             pa = bat1.PA,
             ab = bat1.ab,
             h = bat1.h,
@@ -90,6 +92,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
                sv = pit1.sv
             };
          leagueStats = new DTO_BattingStats {
+            ZTeam = lg1.lgID,  //Put lg in team
+            yearID = lg1.yearID,
             //pa = lg1.PA,
             ab = lg1.AB,
             h = lg1.H,
@@ -114,6 +118,8 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
 
    public class DTO_BattingStats {
+      public string ZTeam { get; set; }
+      public int yearID { get; set; }
       public int pa { get; set; }
       public int ab { get; set; }
       public int h { get; set; }
