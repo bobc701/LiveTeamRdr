@@ -94,7 +94,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          leagueStats = new DTO_BattingStats {
             ZTeam = lg1.lgID,  //Put lg in team
             yearID = lg1.yearID,
-            //pa = lg1.PA,
+            pa = (int)lg1.PA,
             ab = lg1.AB,
             h = lg1.H,
             b2 = lg1.C2B,
