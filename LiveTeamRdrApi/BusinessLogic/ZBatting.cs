@@ -4,6 +4,12 @@ using System.Linq;
 using System.Web;
 using DataAccess;
 
+/* ------------------------------------------------
+ * TODO: Move constructor logic out of here so that this can
+ * use same project as client projects. Maybe use a
+ * extension method.
+ * ------------------------------------------------- */
+
 namespace LiveTeamRdrApi.BusinessLogic {
 
    public class ZBatting {
