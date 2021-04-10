@@ -12,14 +12,14 @@ namespace LiveTeamRdrApi.Controllers
 {
    public class TeamController : ApiController {
 
-      // GET: api/Team/{teamTag}/{year:int}
+   // GET: api/Team/{teamTag}/{year:int}
       [Route("api/team/{teamTag}/{year:int}")]
       [HttpGet]
       public DTO_TeamRoster GetTeam(string teamTag, int year) {
          // --------------------------------------------------
          try {
             var bldr = new CTeamBldr();
-            DTO_TeamRoster team1 = bldr.ConstructTeam(teamTag, year);
+            DTO_TeamRoster team1 = bldr.ConstructTeamMlb(teamTag, year);
             return team1;
          }
          catch (Exception ex) {
@@ -34,10 +34,62 @@ namespace LiveTeamRdrApi.Controllers
       }
 
 
+   // GET:
+      [Route("api/team-cust/{teamID:int}")]
+      [HttpGet]
+      public DTO_TeamRoster GetTeamCust(int teamID) {
+         // --------------------------------------------------
+         try {
+            var bldr = new CTeamBldr();
+            DTO_TeamRoster team1 = bldr.ConstructTeamCust(teamID);
+            return team1;
+         }
+         catch (Exception ex) {
+            string msg = $"Unable to load team data for {teamID}\r\n{ex.Message}";
+            var response = new HttpResponseMessage(HttpStatusCode.NotFound) {
+               Content = new StringContent(msg, System.Text.Encoding.UTF8, "text/plain"),
+               StatusCode = HttpStatusCode.NotFound
+            };
+            throw new HttpResponseException(response);
+         }
+
+      }
+
+
       // GET: api/Team/{teamTag}/{year:int}
       [Route("api/team-list/{year1:int}/{year2:int}")]
       [HttpGet]
       public List<CTeamRecord> GetTeamList(int year1, int year2) {
+         // --------------------------------------------------
+         try {
+            var bldr = new CTeamBldr();
+            List<CTeamRecord> result = bldr.ConstructTeamList(year1, year2).Select(t => new CTeamRecord {
+               City = t.City,
+               LineName = t.LineName,
+               LgID = t.lgID,
+               NickName = t.NickName,
+               TeamTag = t.ZTeam1,
+               Year = t.yearID,
+               UsesDh = t.UsesDH
+            })
+            .OrderByDescending(t => t.LgID).ThenBy(t => t.City).ToList();
+            return result;
+         }
+         catch (Exception ex) {
+            string msg = $"Unable to retrieve list of teams for years {year1} to {year2}\r\n{ex.Message}";
+            var response = new HttpResponseMessage(HttpStatusCode.NotFound) {
+               Content = new StringContent(msg, System.Text.Encoding.UTF8, "text/plain"),
+               StatusCode = HttpStatusCode.NotFound
+            };
+            throw new HttpResponseException(response);
+         }
+
+      }
+
+
+      [Route("api/team-list-cust/{year1:int}/{year2:int}")]
+      [HttpGet]
+      public List<CTeamRecord> GetTeamListCust(int year1, int year2) {
          // --------------------------------------------------
          try {
             var bldr = new CTeamBldr();

@@ -31,21 +31,52 @@ namespace LiveTeamRdrApi.BusinessLogic {
       }
 
 
-      public DTO_TeamRoster ConstructTeam(string teamTag, int year) {
-      // -----------------------------------------------------------
-      // In Access this was called 'BuildAllTeams'
+      public DTO_TeamRoster ConstructTeamMlb(string teamTag, int year) {
 
          ctx = new DB_133455_mlbhistoryEntities2();
 
          zteam1 = ctx.ZTeams.Where(t => t.ZTeam1 == teamTag && t.yearID == year).FirstOrDefault();
          if (zteam1 == null) throw new Exception($"Error: Could not find team {teamTag} for year {year}");
 
-         zbatting1 = ctx.Batting1_app(teamTag, year).ToZBatting(); 
+         zbatting1 = ctx.Batting1_app(teamTag, year).ToZBatting();
          zpitching1 = ctx.Pitching1_app(teamTag, year).ToZPitching();
          zgamesByPosn1 = ctx.GamesByPosn1_app(teamTag, year).ToZGamesByPosn();
          zfielding1 = ctx.ZFieldings.ToList();
          zfieldingYear1 = ctx.FieldingYear1_app(teamTag, year).ToZFieldingYear();
          //zleagueStats1 = ctx.LeagueStats1(year, zteam1.lgID).First().ToZLeagueStats(); //Remove it
+
+
+         var team = ConstructTeam();
+         return team;
+
+      }
+
+
+      public DTO_TeamRoster ConstructTeamCust(int TeamID) {
+
+         ctx = new DB_133455_mlbhistoryEntities2();
+
+         zteam1 = ctx.ZTeams.Where(t => t.ZTeam1 == teamTag && t.yearID == year).FirstOrDefault();
+         if (zteam1 == null) throw new Exception($"Error: Could not find team {teamTag} for year {year}");
+
+         zbatting1 = ctx.Batting1_app(teamTag, year).ToZBatting();
+         zpitching1 = ctx.Pitching1_app(teamTag, year).ToZPitching();
+         zgamesByPosn1 = ctx.GamesByPosn1_app(teamTag, year).ToZGamesByPosn();
+         zfielding1 = ctx.ZFieldings.ToList();
+         zfieldingYear1 = ctx.FieldingYear1_app(teamTag, year).ToZFieldingYear();
+         //zleagueStats1 = ctx.LeagueStats1(year, zteam1.lgID).First().ToZLeagueStats(); //Remove it
+
+
+         var team = ConstructTeam();
+         return team;
+
+      }
+
+
+      private DTO_TeamRoster ConstructTeam() {
+      // -----------------------------------------------------------
+      // In Access this was called 'BuildAllTeams'
+
 
          DupeUseNames();
          DupeUseNames2();
