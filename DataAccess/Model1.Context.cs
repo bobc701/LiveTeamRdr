@@ -30,6 +30,7 @@ namespace DataAccess
         public virtual DbSet<LeagueStat> LeagueStats { get; set; }
         public virtual DbSet<ZFielding> ZFieldings { get; set; }
         public virtual DbSet<ZTeam> ZTeams { get; set; }
+        public virtual DbSet<UserTeam> UserTeams { get; set; }
     
         public virtual ObjectResult<Batting1_app_Result> Batting1_app(string team, Nullable<int> year)
         {
@@ -81,6 +82,42 @@ namespace DataAccess
                 new ObjectParameter("year", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pitching1_app_Result>("Pitching1_app", teamParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<Batting1_cust_Result> Batting1_cust(Nullable<int> userTeamID)
+        {
+            var userTeamIDParameter = userTeamID.HasValue ?
+                new ObjectParameter("userTeamID", userTeamID) :
+                new ObjectParameter("userTeamID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Batting1_cust_Result>("Batting1_cust", userTeamIDParameter);
+        }
+    
+        public virtual ObjectResult<FieldingYear1_cust_Result> FieldingYear1_cust(Nullable<int> userTeamID)
+        {
+            var userTeamIDParameter = userTeamID.HasValue ?
+                new ObjectParameter("userTeamID", userTeamID) :
+                new ObjectParameter("userTeamID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FieldingYear1_cust_Result>("FieldingYear1_cust", userTeamIDParameter);
+        }
+    
+        public virtual ObjectResult<GamesByPosn1_cust_Result> GamesByPosn1_cust(Nullable<int> userTeamID)
+        {
+            var userTeamIDParameter = userTeamID.HasValue ?
+                new ObjectParameter("userTeamID", userTeamID) :
+                new ObjectParameter("userTeamID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GamesByPosn1_cust_Result>("GamesByPosn1_cust", userTeamIDParameter);
+        }
+    
+        public virtual ObjectResult<Pitching1_cust_Result> Pitching1_cust(Nullable<int> userTeamID)
+        {
+            var userTeamIDParameter = userTeamID.HasValue ?
+                new ObjectParameter("userTeamID", userTeamID) :
+                new ObjectParameter("userTeamID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pitching1_cust_Result>("Pitching1_cust", userTeamIDParameter);
         }
     }
 }

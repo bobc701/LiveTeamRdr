@@ -31,6 +31,19 @@ namespace LiveTeamRdrApi.BusinessLogic {
       }
 
 
+      public List<UserTeam> ConstructTeamListCust(string userName) {
+         // -------------------------------------------------------------
+         ctx = new DB_133455_mlbhistoryEntities2();
+
+         var res = ctx.UserTeams
+            .Where(t => t.UserName == userName)
+            .ToList();
+         return res;
+
+      }
+
+
+
       public DTO_TeamRoster ConstructTeamMlb(string teamTag, int year) {
 
          ctx = new DB_133455_mlbhistoryEntities2();
@@ -45,27 +58,23 @@ namespace LiveTeamRdrApi.BusinessLogic {
          zfieldingYear1 = ctx.FieldingYear1_app(teamTag, year).ToZFieldingYear();
          //zleagueStats1 = ctx.LeagueStats1(year, zteam1.lgID).First().ToZLeagueStats(); //Remove it
 
-
          var team = ConstructTeam();
          return team;
 
       }
 
 
-      public DTO_TeamRoster ConstructTeamCust(int TeamID) {
+      public DTO_TeamRoster ConstructTeamCust(int userTeamID) {
 
          ctx = new DB_133455_mlbhistoryEntities2();
 
-         zteam1 = ctx.ZTeams.Where(t => t.ZTeam1 == teamTag && t.yearID == year).FirstOrDefault();
-         if (zteam1 == null) throw new Exception($"Error: Could not find team {teamTag} for year {year}");
+         zteam1 = ctx.UserTeams.FirstOrDefault(t => t.UserTeamID == userTeamID).ToZTeam();
 
-         zbatting1 = ctx.Batting1_app(teamTag, year).ToZBatting();
-         zpitching1 = ctx.Pitching1_app(teamTag, year).ToZPitching();
-         zgamesByPosn1 = ctx.GamesByPosn1_app(teamTag, year).ToZGamesByPosn();
+         zbatting1 = ctx.Batting1_cust(userTeamID).ToZBatting();
+         zpitching1 = ctx.Pitching1_cust(userTeamID).ToZPitching();
+         zgamesByPosn1 = ctx.GamesByPosn1_cust(userTeamID).ToZGamesByPosn();
          zfielding1 = ctx.ZFieldings.ToList();
-         zfieldingYear1 = ctx.FieldingYear1_app(teamTag, year).ToZFieldingYear();
-         //zleagueStats1 = ctx.LeagueStats1(year, zteam1.lgID).First().ToZLeagueStats(); //Remove it
-
+         zfieldingYear1 = ctx.FieldingYear1_cust(userTeamID).ToZFieldingYear();
 
          var team = ConstructTeam();
          return team;
@@ -232,6 +241,11 @@ namespace LiveTeamRdrApi.BusinessLogic {
 
          string GetMaxStat(string stat) {
          // ---------------------------------------------------
+         // For custom teams, I remmed out the max == 0 check, so we will
+         // just take 1st avail player if none avail at the posn.
+         // Best we can do. User needs to add players to the team.
+         // We could perhaps change TeamBldr to enforce each posn.
+         // ----------------------------------------------------------
             var list1 = list.Where(bat => !sIDList.Contains(bat.playerID));
             double max = list1.Max(bat => bat[stat]);
             //if (max == 0.0) return "";
@@ -311,7 +325,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
             // ---------------------------------------------------
             var list = zgamesByPosn1.Where(g => !sIdList.Contains(g.playerID));
             int max = list.Max(g1 => g1[posn]);
-            if (max == 0) return "";
+            //if (max == 0) return "";
             string id1 = list.First(g => g[posn] == max).playerID;
             return id1;
 
@@ -321,7 +335,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
             // ---------------------------------------------------
             var list = zpitching1.Where(pit => !sIdList.Contains(pit.playerID));
             int max = list.Max(pit1 => pit1.gs);
-            if (max == 0) return "";
+            //if (max == 0) return "";
             string id1 = list.First(pit => pit.gs == max).playerID;
             return id1;
          }

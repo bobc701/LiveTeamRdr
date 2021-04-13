@@ -87,26 +87,20 @@ namespace LiveTeamRdrApi.Controllers
       }
 
 
-      [Route("api/team-list-cust/{year1:int}/{year2:int}")]
+      [Route("api/team-list-cust/{userName}")]
       [HttpGet]
-      public List<CTeamRecord> GetTeamListCust(int year1, int year2) {
+      public List<UserTeam> GetTeamListCust(string userName) {
          // --------------------------------------------------
          try {
             var bldr = new CTeamBldr();
-            List<CTeamRecord> result = bldr.ConstructTeamList(year1, year2).Select(t => new CTeamRecord {
-               City = t.City,
-               LineName = t.LineName,
-               LgID = t.lgID,
-               NickName = t.NickName,
-               TeamTag = t.ZTeam1,
-               Year = t.yearID,
-               UsesDh = t.UsesDH
-            })
-            .OrderByDescending(t => t.LgID).ThenBy(t => t.City).ToList();
+
+            List<UserTeam> result = bldr.ConstructTeamListCust(userName)
+               .OrderBy(t => t.TeamName)
+               .ToList();
             return result;
          }
          catch (Exception ex) {
-            string msg = $"Unable to retrieve list of teams for years {year1} to {year2}\r\n{ex.Message}";
+            string msg = $"Unable to retrieve list of teams for user {userName}";
             var response = new HttpResponseMessage(HttpStatusCode.NotFound) {
                Content = new StringContent(msg, System.Text.Encoding.UTF8, "text/plain"),
                StatusCode = HttpStatusCode.NotFound
@@ -124,7 +118,7 @@ namespace LiveTeamRdrApi.Controllers
       public List<ZBatting> GetTeam2(string teamTag, int year) {
       // --------------------------------------------------
          var bldr = new CTeamBldr();
-         DTO_TeamRoster team1 = bldr.ConstructTeam(teamTag, year);
+         DTO_TeamRoster team1 = bldr.ConstructTeamMlb(teamTag, year);
 
          return bldr.zbatting1;
       }

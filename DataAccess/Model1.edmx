@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DB_133455_mlbhistoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DB_133455_mlbhistoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="LeagueStats">
           <Key>
             <PropertyRef Name="yearID" />
@@ -31,6 +31,20 @@
           <Property Name="SF" Type="int" />
           <Property Name="GIDP" Type="int" />
           <Property Name="IPouts" Type="int" />
+        </EntityType>
+        <EntityType Name="UserTeams">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="UserTeamID" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserTeamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="NumPos" Type="int" />
+          <Property Name="NumPit" Type="int" />
+          <Property Name="UsesDh" Type="bit" Nullable="false" />
+          <Property Name="IsComplete" Type="bit" Nullable="false" />
+          <Property Name="StatusMsg" Type="nvarchar" MaxLength="120" />
         </EntityType>
         <EntityType Name="ZFielding">
           <Key>
@@ -71,25 +85,37 @@
           <Parameter Name="team" Type="nvarchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
         </Function>
+        <Function Name="Batting1_cust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userTeamID" Type="int" Mode="In" />
+        </Function>
         <Function Name="FieldingYear1_app" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="team" Type="nvarchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="FieldingYear1_cust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userTeamID" Type="int" Mode="In" />
         </Function>
         <Function Name="GamesByPosn1_app" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="team" Type="nvarchar" Mode="In" />
           <Parameter Name="BldYear" Type="int" Mode="In" />
         </Function>
+        <Function Name="GamesByPosn1_cust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userTeamID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Pitching1_app" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="team" Type="nvarchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
         </Function>
+        <Function Name="Pitching1_cust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userTeamID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_133455_mlbhistoryModelStoreContainer">
           <EntitySet Name="LeagueStats" EntityType="Self.LeagueStats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTeams" EntityType="Self.UserTeams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZFielding" EntityType="Self.ZFielding" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZTeams" EntityType="Self.ZTeams" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DB_133455_mlbhistoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -175,6 +201,19 @@
             <Parameter Name="team" Mode="In" Type="String" />
             <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="UserTeams" EntityType="DB_133455_mlbhistoryModel.UserTeam" />
+          <FunctionImport Name="Batting1_cust" ReturnType="Collection(DB_133455_mlbhistoryModel.Batting1_cust_Result)">
+            <Parameter Name="userTeamID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FieldingYear1_cust" ReturnType="Collection(DB_133455_mlbhistoryModel.FieldingYear1_cust_Result)">
+            <Parameter Name="userTeamID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GamesByPosn1_cust" ReturnType="Collection(DB_133455_mlbhistoryModel.GamesByPosn1_cust_Result)">
+            <Parameter Name="userTeamID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pitching1_cust" ReturnType="Collection(DB_133455_mlbhistoryModel.Pitching1_cust_Result)">
+            <Parameter Name="userTeamID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Batting1_app_Result">
           <Property Type="String" Name="playerID" Nullable="true" MaxLength="10" />
@@ -238,6 +277,108 @@
           <Property Type="Int32" Name="G_dh" Nullable="false" />
         </ComplexType>
         <ComplexType Name="Pitching1_app_Result">
+          <Property Type="String" Name="playerID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="lgID" Nullable="false" MaxLength="3" />
+          <Property Type="Int32" Name="yearID" Nullable="false" />
+          <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="nameLast" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="nameFirst" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UseName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="bats" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="throws" Nullable="true" MaxLength="4" />
+          <Property Type="Int32" Name="BFP" Nullable="true" />
+          <Property Type="Int32" Name="W" Nullable="true" />
+          <Property Type="Int32" Name="L" Nullable="true" />
+          <Property Type="Int32" Name="G" Nullable="true" />
+          <Property Type="Int32" Name="GS" Nullable="true" />
+          <Property Type="Int32" Name="SV" Nullable="true" />
+          <Property Type="Int32" Name="IPouts" Nullable="true" />
+          <Property Type="Int32" Name="H" Nullable="true" />
+          <Property Type="Int32" Name="ER" Nullable="true" />
+          <Property Type="Int32" Name="HR" Nullable="true" />
+          <Property Type="Int32" Name="BB" Nullable="true" />
+          <Property Type="Int32" Name="IBB" Nullable="true" />
+          <Property Type="Int32" Name="SO" Nullable="true" />
+          <Property Type="Int32" Name="WP" Nullable="true" />
+          <Property Type="Int32" Name="HBP" Nullable="true" />
+          <Property Type="Double" Name="ERA" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="UserTeam">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="UserTeamID" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UserTeamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NumPos" Type="Int32" />
+          <Property Name="NumPit" Type="Int32" />
+          <Property Name="UsesDh" Type="Boolean" Nullable="false" />
+          <Property Name="IsComplete" Type="Boolean" Nullable="false" />
+          <Property Name="StatusMsg" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="Batting1_cust_Result">
+          <Property Type="String" Name="playerID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="lgID" Nullable="false" MaxLength="3" />
+          <Property Type="Int32" Name="yearID" Nullable="false" />
+          <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="nameLast" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="nameFirst" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UseName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="bats" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="throws" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="PlayerCategory" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="G" Nullable="true" />
+          <Property Type="Int32" Name="AB" Nullable="true" />
+          <Property Type="Int32" Name="R" Nullable="true" />
+          <Property Type="Int32" Name="H" Nullable="true" />
+          <Property Type="Int32" Name="C2B" Nullable="true" />
+          <Property Type="Int32" Name="C3B" Nullable="true" />
+          <Property Type="Int32" Name="HR" Nullable="true" />
+          <Property Type="Int32" Name="RBI" Nullable="true" />
+          <Property Type="Int32" Name="SB" Nullable="true" />
+          <Property Type="Int32" Name="CS" Nullable="true" />
+          <Property Type="Int32" Name="BB" Nullable="true" />
+          <Property Type="Int32" Name="SO" Nullable="true" />
+          <Property Type="Int32" Name="IBB" Nullable="true" />
+          <Property Type="Int32" Name="HBP" Nullable="true" />
+          <Property Type="Int32" Name="SH" Nullable="true" />
+          <Property Type="Int32" Name="SF" Nullable="true" />
+          <Property Type="Int32" Name="GIDP" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FieldingYear1_cust_Result">
+          <Property Type="String" Name="playerID" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="12" />
+          <Property Type="Int16" Name="Posn" Nullable="false" />
+          <Property Type="Double" Name="inn" Nullable="true" />
+          <Property Type="Int16" Name="po" Nullable="true" />
+          <Property Type="Int16" Name="a" Nullable="true" />
+          <Property Type="Int16" Name="e" Nullable="true" />
+          <Property Type="Int16" Name="dp" Nullable="true" />
+          <Property Type="Int16" Name="Rtot" Nullable="true" />
+          <Property Type="Int16" Name="RtotYr" Nullable="true" />
+          <Property Type="Int16" Name="Skill" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GamesByPosn1_cust_Result">
+          <Property Type="String" Name="playerID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="ZTeam" Nullable="false" MaxLength="6" />
+          <Property Type="Int32" Name="yearID" Nullable="false" />
+          <Property Type="Int32" Name="G_all" Nullable="false" />
+          <Property Type="Int32" Name="GS" Nullable="false" />
+          <Property Type="Int32" Name="G_p" Nullable="true" />
+          <Property Type="Int32" Name="G_c" Nullable="true" />
+          <Property Type="Int32" Name="G_1b" Nullable="true" />
+          <Property Type="Int32" Name="G_2b" Nullable="true" />
+          <Property Type="Int32" Name="G_3b" Nullable="true" />
+          <Property Type="Int32" Name="G_ss" Nullable="true" />
+          <Property Type="Int32" Name="G_lf" Nullable="true" />
+          <Property Type="Int32" Name="G_cf" Nullable="true" />
+          <Property Type="Int32" Name="G_rf" Nullable="true" />
+          <Property Type="Int32" Name="G_of" Nullable="true" />
+          <Property Type="Int32" Name="G_dh" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Pitching1_cust_Result">
           <Property Type="String" Name="playerID" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="lgID" Nullable="false" MaxLength="3" />
           <Property Type="Int32" Name="yearID" Nullable="false" />
@@ -409,6 +550,124 @@
           <FunctionImportMapping FunctionImportName="Pitching1_app" FunctionName="DB_133455_mlbhistoryModel.Store.Pitching1_app">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.Pitching1_app_Result">
+                <ScalarProperty Name="playerID" ColumnName="playerID" />
+                <ScalarProperty Name="lgID" ColumnName="lgID" />
+                <ScalarProperty Name="yearID" ColumnName="yearID" />
+                <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+                <ScalarProperty Name="nameLast" ColumnName="nameLast" />
+                <ScalarProperty Name="nameFirst" ColumnName="nameFirst" />
+                <ScalarProperty Name="UseName" ColumnName="UseName" />
+                <ScalarProperty Name="bats" ColumnName="bats" />
+                <ScalarProperty Name="throws" ColumnName="throws" />
+                <ScalarProperty Name="BFP" ColumnName="BFP" />
+                <ScalarProperty Name="W" ColumnName="W" />
+                <ScalarProperty Name="L" ColumnName="L" />
+                <ScalarProperty Name="G" ColumnName="G" />
+                <ScalarProperty Name="GS" ColumnName="GS" />
+                <ScalarProperty Name="SV" ColumnName="SV" />
+                <ScalarProperty Name="IPouts" ColumnName="IPouts" />
+                <ScalarProperty Name="H" ColumnName="H" />
+                <ScalarProperty Name="ER" ColumnName="ER" />
+                <ScalarProperty Name="HR" ColumnName="HR" />
+                <ScalarProperty Name="BB" ColumnName="BB" />
+                <ScalarProperty Name="IBB" ColumnName="IBB" />
+                <ScalarProperty Name="SO" ColumnName="SO" />
+                <ScalarProperty Name="WP" ColumnName="WP" />
+                <ScalarProperty Name="HBP" ColumnName="HBP" />
+                <ScalarProperty Name="ERA" ColumnName="ERA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="UserTeams">
+            <EntityTypeMapping TypeName="DB_133455_mlbhistoryModel.UserTeam">
+              <MappingFragment StoreEntitySet="UserTeams">
+                <ScalarProperty Name="StatusMsg" ColumnName="StatusMsg" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="UsesDh" ColumnName="UsesDh" />
+                <ScalarProperty Name="NumPit" ColumnName="NumPit" />
+                <ScalarProperty Name="NumPos" ColumnName="NumPos" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="UserTeamID" ColumnName="UserTeamID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Batting1_cust" FunctionName="DB_133455_mlbhistoryModel.Store.Batting1_cust">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.Batting1_cust_Result">
+                <ScalarProperty Name="playerID" ColumnName="playerID" />
+                <ScalarProperty Name="lgID" ColumnName="lgID" />
+                <ScalarProperty Name="yearID" ColumnName="yearID" />
+                <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+                <ScalarProperty Name="nameLast" ColumnName="nameLast" />
+                <ScalarProperty Name="nameFirst" ColumnName="nameFirst" />
+                <ScalarProperty Name="UseName" ColumnName="UseName" />
+                <ScalarProperty Name="bats" ColumnName="bats" />
+                <ScalarProperty Name="throws" ColumnName="throws" />
+                <ScalarProperty Name="PlayerCategory" ColumnName="PlayerCategory" />
+                <ScalarProperty Name="G" ColumnName="G" />
+                <ScalarProperty Name="AB" ColumnName="AB" />
+                <ScalarProperty Name="R" ColumnName="R" />
+                <ScalarProperty Name="H" ColumnName="H" />
+                <ScalarProperty Name="C2B" ColumnName="2B" />
+                <ScalarProperty Name="C3B" ColumnName="3B" />
+                <ScalarProperty Name="HR" ColumnName="HR" />
+                <ScalarProperty Name="RBI" ColumnName="RBI" />
+                <ScalarProperty Name="SB" ColumnName="SB" />
+                <ScalarProperty Name="CS" ColumnName="CS" />
+                <ScalarProperty Name="BB" ColumnName="BB" />
+                <ScalarProperty Name="SO" ColumnName="SO" />
+                <ScalarProperty Name="IBB" ColumnName="IBB" />
+                <ScalarProperty Name="HBP" ColumnName="HBP" />
+                <ScalarProperty Name="SH" ColumnName="SH" />
+                <ScalarProperty Name="SF" ColumnName="SF" />
+                <ScalarProperty Name="GIDP" ColumnName="GIDP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FieldingYear1_cust" FunctionName="DB_133455_mlbhistoryModel.Store.FieldingYear1_cust">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.FieldingYear1_cust_Result">
+                <ScalarProperty Name="playerID" ColumnName="playerID" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+                <ScalarProperty Name="Posn" ColumnName="Posn" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="po" ColumnName="po" />
+                <ScalarProperty Name="a" ColumnName="a" />
+                <ScalarProperty Name="e" ColumnName="e" />
+                <ScalarProperty Name="dp" ColumnName="dp" />
+                <ScalarProperty Name="Rtot" ColumnName="Rtot" />
+                <ScalarProperty Name="RtotYr" ColumnName="RtotYr" />
+                <ScalarProperty Name="Skill" ColumnName="Skill" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GamesByPosn1_cust" FunctionName="DB_133455_mlbhistoryModel.Store.GamesByPosn1_cust">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.GamesByPosn1_cust_Result">
+                <ScalarProperty Name="playerID" ColumnName="playerID" />
+                <ScalarProperty Name="ZTeam" ColumnName="ZTeam" />
+                <ScalarProperty Name="yearID" ColumnName="yearID" />
+                <ScalarProperty Name="G_all" ColumnName="G_all" />
+                <ScalarProperty Name="GS" ColumnName="GS" />
+                <ScalarProperty Name="G_p" ColumnName="G_p" />
+                <ScalarProperty Name="G_c" ColumnName="G_c" />
+                <ScalarProperty Name="G_1b" ColumnName="G_1b" />
+                <ScalarProperty Name="G_2b" ColumnName="G_2b" />
+                <ScalarProperty Name="G_3b" ColumnName="G_3b" />
+                <ScalarProperty Name="G_ss" ColumnName="G_ss" />
+                <ScalarProperty Name="G_lf" ColumnName="G_lf" />
+                <ScalarProperty Name="G_cf" ColumnName="G_cf" />
+                <ScalarProperty Name="G_rf" ColumnName="G_rf" />
+                <ScalarProperty Name="G_of" ColumnName="G_of" />
+                <ScalarProperty Name="G_dh" ColumnName="G_dh" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Pitching1_cust" FunctionName="DB_133455_mlbhistoryModel.Store.Pitching1_cust">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_133455_mlbhistoryModel.Pitching1_cust_Result">
                 <ScalarProperty Name="playerID" ColumnName="playerID" />
                 <ScalarProperty Name="lgID" ColumnName="lgID" />
                 <ScalarProperty Name="yearID" ColumnName="yearID" />
