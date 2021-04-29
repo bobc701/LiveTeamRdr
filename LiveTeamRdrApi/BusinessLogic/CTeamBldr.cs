@@ -36,7 +36,7 @@ namespace LiveTeamRdrApi.BusinessLogic {
          ctx = new DB_133455_mlbhistoryEntities2();
 
          var res = ctx.UserTeams
-            .Where(t => t.UserName == userName)
+            .Where(t => t.UserName == userName && t.IsComplete)
             .ToList();
          return res;
 
