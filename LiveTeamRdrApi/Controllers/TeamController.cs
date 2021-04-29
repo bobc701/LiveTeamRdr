@@ -89,16 +89,26 @@ namespace LiveTeamRdrApi.Controllers
 
       [Route("api/team-list-cust/{userName}")]
       [HttpGet]
-      public List<UserTeam> GetTeamListCust(string userName) {
-         // --------------------------------------------------
+      public List<CTeamRecord> GetTeamListCust(string userName) {
+      // --------------------------------------------------
          try {
             var bldr = new CTeamBldr();
 
-            List<UserTeam> result = bldr.ConstructTeamListCust(userName)
-               .OrderBy(t => t.TeamName)
-               .ToList();
+            List<CTeamRecord> result = bldr.ConstructTeamListCust(userName)
+               .Select(t => new CTeamRecord {
+                  City = t.TeamName,
+                  LineName = t.TeamName.Substring(0,3),
+                  LgID = "NA",
+                  NickName = t.TeamName,
+                  TeamTag = "CUS",
+                  Year = 0,
+                  UsesDh = t.UsesDh
+               })
+               .OrderBy(t => t.City).ToList();
+
             return result;
          }
+
          catch (Exception ex) {
             string msg = $"Unable to retrieve list of teams for user {userName}";
             var response = new HttpResponseMessage(HttpStatusCode.NotFound) {
