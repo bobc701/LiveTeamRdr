@@ -68,8 +68,9 @@ namespace LiveTeamRdrApi.Controllers
                LineName = t.LineName,
                LgID = t.lgID,
                NickName = t.NickName,
-               TeamTag = t.ZTeam1,
-               Year = t.yearID,
+               TeamTag = t.ZTeam1, //For real teams
+               Year = t.yearID,    //For real teams
+               UserTeamID = 0,     //For custom teams
                UsesDh = t.UsesDH
             })
             .OrderByDescending(t => t.LgID).ThenBy(t => t.City).ToList();
@@ -97,11 +98,12 @@ namespace LiveTeamRdrApi.Controllers
             List<CTeamRecord> result = bldr.ConstructTeamListCust(userName)
                .Select(t => new CTeamRecord {
                   City = t.TeamName,
-                  LineName = t.TeamName.Substring(0,3),
+                  LineName = t.TeamName.Substring(0,3), 
                   LgID = "NA",
                   NickName = t.TeamName,
-                  TeamTag = "CUS",
-                  Year = 0,
+                  TeamTag = "CUS",  //For real teams
+                  Year = 0,         //For real teams
+                  UserTeamID = t.UserTeamID, //For custom teams
                   UsesDh = t.UsesDh
                })
                .OrderBy(t => t.City).ToList();
@@ -209,8 +211,9 @@ namespace LiveTeamRdrApi.Controllers
 
 public struct CTeamRecord {
    // ---------------------------------------------------
-   public string TeamTag { get; set; }
-   public int Year { get; set; }
+   public string TeamTag { get; set; } //For real teams
+   public int Year { get; set; }       //For real teams
+   public int UserTeamID { get; set; } // For custom teams
    public string LineName { get; set; }
    public string City { get; set; }
    public string NickName { get; set; }
